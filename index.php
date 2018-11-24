@@ -1,5 +1,5 @@
 <?php
 
-include "view.php";
+include "view/view.html";
 
 ?>
