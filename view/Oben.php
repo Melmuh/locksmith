@@ -9,8 +9,3 @@
 </head>
 <body>
 
-    <div class="head">Moin</div>
-    
-
-</body>
-</html>
