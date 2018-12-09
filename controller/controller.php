@@ -3,6 +3,31 @@
 include "model/model.php";
 
 
+// Warenkorb -------------------------------------------------------------------------------------------------------
+
+    if(isset($_POST['korblegen']))
+    {
+        $neu = $_COOKIE['korb'] + $_POST['artanzahl'];
+
+        setcookie('korb', $neu, time()+3600);
+        header("Refresh:0");
+    }
+
+// --------------------------------------------------------------------------------------------------------------------
+
+
+// Warenkorbcookie ----------------------------------------------------------------------------------
+
+    if(!isset($_COOKIE['korb']))
+    {
+        setcookie('korb', 0, time()+3600);
+    }
+    
+    include "view/Warenkorbvorschau.php";
+    
+// ---------------------------------------------------------------------------------------------------
+
+
 
 // Loginfunktion -------------------------------------------------------------------------------
 
@@ -89,7 +114,31 @@ include "model/model.php";
 
     if(isset($_GET['spiel']))
     {
-        include "view/Einzelartikel.php";
+        
+        $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'");
+
+            while ($row = $stm->fetch())
+            {
+                include "view/Einzelartikelinfos.php";
+
+                $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+                if($restanzahl == 0)
+                {
+                    $restbestand = "Es sind leider alle Artikel ausverkauft.";
+                }
+                elseif($restanzahl == 1)
+                {
+                    $restbestand = "Es ist nur noch 1 Artikel übrig!";
+                    include "view/Warenkorbeinlage.php";
+                }
+                else
+                {
+                    $restbestand = "Es sind noch ".$restanzahl." Artikel übrig!";
+                    include "view/Warenkorbeinlage.php";
+                }
+
+                include "view/Restanzahl.php";
+            }
     }
     else
     {
@@ -99,6 +148,7 @@ include "model/model.php";
             {
                 $artikelstart = $_GET['seite'] * 6 - 6;
                 $stm = $pdo->query("SELECT * FROM spiele limit ".$artikelstart.", 6");
+
                 while ($row = $stm->fetch())
                 {
                     include "view/Artikel.php";
@@ -142,6 +192,7 @@ include "model/model.php";
     }
 
 
+// ---------------------------------------------------------------------------------------------------------------
 
 
 
