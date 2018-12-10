@@ -5,7 +5,10 @@ session_start();
 include "model/model.php";
 
 
-// Warenkorb -------------------------------------------------------------------------------------------------------
+
+
+
+// Warenkorbcookie ----------------------------------------------------------------------------------
 
     if(isset($_POST['korblegen']))
     {
@@ -13,17 +16,41 @@ include "model/model.php";
 
         setcookie('korb', $neu, time()+3600);
         header("Refresh:0");
+
+        // Artikel in den Warenkorb legen ohne Login ----------------------------------------------------------------------------------
+
+            $stm = $pdo->prepare("INSERT INTO warenkorb (cookie_user, s_id, s_menge) VALUES (:cookie_user, :s_id, :s_menge)");
+            $stm->bindParam(":cookie_user", $_COOKIE['user']);
+            $stm->bindParam(":s_id", $_POST['sid']);
+            $stm->bindParam(":s_menge", $_POST['artanzahl']);
+            $stm->execute();
+
+        // ----------------------------------------------------------------------------------------------------------------------------
+
     }
-
-// --------------------------------------------------------------------------------------------------------------------
-
-
-// Warenkorbcookie ----------------------------------------------------------------------------------
 
     if(!isset($_COOKIE['korb']))
     {
         setcookie('korb', 0, time()+3600);
     }
+
+    if(!isset($_COOKIE['user']))
+    {
+
+        // cookie User erstellen, falls noch nicht getan.
+
+        $newuser = md5(openssl_random_pseudo_bytes(32));
+        setcookie('user', $newuser, time()+3600);
+
+        $stm = $pdo->prepare("INSERT INTO cookie (cookie_user, logged_in) VALUES (:cookie_user, 0)");
+        $stm->bindParam(":cookie_user", $_COOKIE['user']);
+
+        $stm->execute();
+
+        
+    }
+
+    
     
     include "view/Warenkorbvorschau.php";
     
@@ -55,6 +82,12 @@ include "model/model.php";
             //     $hash = password_hash($password, PASSWORD_DEFAULT),
 
             //     // store in database
+
+            //     $stm = $pdo->prepare("UPDATE nutzer SET hashwert = :hashwert WHERE n_email = :email");
+            //     $stm->bindParam(":hashwert", $hash);
+            //     $stm->bindParam(":email", $email);
+                
+            //     $stm->execute();
             // }
 
             // Session ID erstellen --------------------------------------------------------
@@ -114,7 +147,7 @@ include "model/model.php";
 
 // Einzelansicht -----------------------------------------------------------------------------------------
 
-    if(isset($_GET['spiel']))
+    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']))
     {
         
         $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'"); // muss noch gebindet werden !!!!
@@ -142,7 +175,7 @@ include "model/model.php";
                 include "view/Restanzahl.php";
             }
     }
-    else
+    elseif(!isset($_GET['Warenkorb']))
     {
         // Alle Artikel ausgeben ----------------------------------------------------------------------------------
 
@@ -196,7 +229,30 @@ include "model/model.php";
 
 // ---------------------------------------------------------------------------------------------------------------
 
+// Warenkorb -------------------------------------------------------------------------------------------------------
 
+    if(isset($_GET['Warenkorb']))
+    {
+
+        include "view/Warenkorb.php";
+
+
+        // Auflistung der Einträge -------------------------------------------------------------------------
+
+            $stm = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
+            while ($row = $stm->fetch())
+            {
+                $spielename = $pdo->query("SELECT s_name from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+                $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+                include "view/Warenkorbeinzelartikel.php";
+            }
+
+        // ------------------------------------------------------------------------------------------------------
+
+        
+    }
+
+// --------------------------------------------------------------------------------------------------------------------
 
 
 ?>
