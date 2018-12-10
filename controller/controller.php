@@ -245,11 +245,28 @@ include "model/model.php";
                 $spielename = $pdo->query("SELECT s_name from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
                 $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$row['s_id']."'")->fetchColumn();
                 include "view/Warenkorbeinzelartikel.php";
+
+                
             }
+
+
+            // Löschen der Einzeleinträge -----------------------------------------------------------------
+
+                if(isset($_POST['del']))
+                {
+                    $stm = $pdo->prepare("DELETE FROM warenkorb WHERE w_id = '".$_POST['wid']."'");
+                    // $stm->bindParam("w_id", $_POST['wid']);
+                    $stm->execute();
+
+                    header("Refresh:0");
+                }
+
+            // ---------------------------------------------------------------------------------------------
 
         // ------------------------------------------------------------------------------------------------------
 
         
+
     }
 
 // --------------------------------------------------------------------------------------------------------------------
