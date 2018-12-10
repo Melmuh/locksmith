@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include "model/model.php";
 
 
@@ -46,8 +48,6 @@ include "model/model.php";
         $stored_hash = $statement->fetchColumn();
 
 
-        print_r($stored_hash);
-
         if(password_verify($password, $stored_hash))
         {
             // if(password_needs_rehash($stored_hash, PASSWORD_DEFAULT))
@@ -58,6 +58,8 @@ include "model/model.php";
             // }
 
             // Session ID erstellen --------------------------------------------------------
+
+            
 
             $_SESSION['sid'] = md5(openssl_random_pseudo_bytes(32));
 
@@ -115,7 +117,7 @@ include "model/model.php";
     if(isset($_GET['spiel']))
     {
         
-        $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'");
+        $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'"); // muss noch gebindet werden !!!!
 
             while ($row = $stm->fetch())
             {
