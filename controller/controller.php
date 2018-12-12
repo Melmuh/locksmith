@@ -29,7 +29,7 @@ include "model/model.php";
 
 
 
-// Warenkorbcookie ----------------------------------------------------------------------------------
+// Warenkoreinlage ----------------------------------------------------------------------------------
 
     if(isset($_POST['korblegen']))
     {
@@ -90,8 +90,6 @@ include "model/model.php";
             //     $stm->execute();
             // }
             
-            echo $email;
-            echo "Bruder, du bist drin. ";
 
 
             
@@ -132,12 +130,12 @@ include "model/model.php";
     {
         // User auf ausgeloggt setzen -----------------------------------------------------------
 
-        $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
-        $stm->bindParam(":cookie_user", $_COOKIE['user']);
+            $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
+            $stm->bindParam(":cookie_user", $_COOKIE['user']);
 
-        $stm->execute();
+            $stm->execute();
 
-    // ---------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------
     }
 
 
@@ -165,10 +163,7 @@ include "model/model.php";
 
 // Registrierfunktion -------------------------------------------------------------------------------
 
-    if(isset($_GET['reg']))
-    {
-        include "view/reg.php";
-    }
+    
 
     if(isset($_POST['registrieren']))
     {
@@ -181,16 +176,34 @@ include "model/model.php";
 
         $hash = password_hash($n_pass, PASSWORD_DEFAULT);
 
-        
-        //Prepare Statements
-        $stm = $pdo->prepare("INSERT INTO nutzer(n_name, n_vorname, n_email, hashwert) VALUES (:n_name, :n_vorname, :n_email, :hashwert)");
-        $stm->bindParam(":n_name", $n_name);
-        $stm->bindParam(":n_vorname", $n_vorname);
-        $stm->bindParam(":n_email", $n_email);
-        $stm->bindParam(":hashwert", $hash);
+        // Prüfen, ob email schon vorhanden ----------------------------------------------------------------------
 
-        $stm->execute();
-    
+            $emailvergeben = $pdo->query("SELECT count(*) from nutzer WHERE n_email = '".$n_email."'")->fetchColumn();
+
+            if($emailvergeben > 0)
+            {
+                $_GET['reg'] = "Registrieren";
+                echo "loool die gibts schon!!!";
+            }
+            else
+            {
+                //Prepare Statements
+                $stm = $pdo->prepare("INSERT INTO nutzer(n_name, n_vorname, n_email, hashwert) VALUES (:n_name, :n_vorname, :n_email, :hashwert)");
+                $stm->bindParam(":n_name", $n_name);
+                $stm->bindParam(":n_vorname", $n_vorname);
+                $stm->bindParam(":n_email", $n_email);
+                $stm->bindParam(":hashwert", $hash);
+
+                $stm->execute();
+            }
+
+        // -------------------------------------------------------------------------------------------------------
+
+    }
+
+    if(isset($_GET['reg']))
+    {
+        include "view/reg.php";
     }
 
 // ---------------------------------------------------------------------------------------------------------
@@ -326,6 +339,15 @@ include "model/model.php";
 
 
 // --------------------------------------------------------------------------------------------------------------------
+
+
+
+// Adminbereich --------------------------------------------------------------------------------------------------
+
+    $n_id = $pdo->query("SELECT n_id from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+    $n_admin = $pdo->query("SELECT n_admin from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+
+// ---------------------------------------------------------------------------------------------------------------
 
 
 ?>
