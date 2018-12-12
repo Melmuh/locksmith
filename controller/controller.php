@@ -31,7 +31,7 @@ include "model/model.php";
 
     if(!isset($_COOKIE['korb']))
     {
-        setcookie('korb', 0, time()+3600);
+        setcookie('korb', 0, time()+31556926);
     }
 
     if(!isset($_COOKIE['user']))
@@ -40,7 +40,7 @@ include "model/model.php";
         // cookie User erstellen, falls noch nicht getan.
 
         $newuser = md5(openssl_random_pseudo_bytes(32));
-        setcookie('user', $newuser, time()+3600);
+        setcookie('user', $newuser, time()+31556926);
 
         $stm = $pdo->prepare("INSERT INTO cookie (cookie_user, logged_in) VALUES (:cookie_user, 0)");
         $stm->bindParam(":cookie_user", $_COOKIE['user']);
