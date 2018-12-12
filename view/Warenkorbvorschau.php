@@ -1,5 +1,5 @@
 <?php
 
-    echo "Sie haben ".$_COOKIE['korb']." Artikel im <a href=\"?Warenkorb=1\">Warenkorb!</a>";
+    echo "Sie haben ".$korbanzahl." Artikel im <a href=\"?Warenkorb=1\">Warenkorb!</a>";
 
 ?>

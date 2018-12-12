@@ -1,10 +1,31 @@
 <?php
 
-session_start();
 
 include "model/model.php";
 
+// Session ID erstellen --------------------------------------------------------------------------
 
+    if(!isset($_COOKIE['user']))
+    {
+
+        // cookie User erstellen, falls noch nicht getan.
+
+        $newuser = md5(openssl_random_pseudo_bytes(32));
+        setcookie('user', $newuser, time()+31556926);
+        $_COOKIE['user'] = $newuser; // damit der cookie früher geladen wird lol
+
+        
+
+        $stm = $pdo->prepare("INSERT INTO cookie (cookie_user, logged_in) VALUES (:cookie_user, 0)");
+        $stm->bindParam(":cookie_user", $_COOKIE['user']);
+
+        $stm->execute();
+
+    }
+
+
+    
+// ------------------------------------------------------------------------------------------------
 
 
 
@@ -12,10 +33,6 @@ include "model/model.php";
 
     if(isset($_POST['korblegen']))
     {
-        $neu = $_COOKIE['korb'] + $_POST['artanzahl'];
-
-        setcookie('korb', $neu, time()+3600);
-        header("Refresh:0");
 
         // Artikel in den Warenkorb legen ohne Login ----------------------------------------------------------------------------------
 
@@ -29,27 +46,12 @@ include "model/model.php";
 
     }
 
-    if(!isset($_COOKIE['korb']))
-    {
-        setcookie('korb', 0, time()+31556926);
-    }
+    
+    // Warenkorbartikel zählen -------------------------------------------------------------------------------------------
 
-    if(!isset($_COOKIE['user']))
-    {
+        $korbanzahl = $pdo->query("SELECT count(*) from warenkorb WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
 
-        // cookie User erstellen, falls noch nicht getan.
-
-        $newuser = md5(openssl_random_pseudo_bytes(32));
-        setcookie('user', $newuser, time()+31556926);
-
-        $stm = $pdo->prepare("INSERT INTO cookie (cookie_user, logged_in) VALUES (:cookie_user, 0)");
-        $stm->bindParam(":cookie_user", $_COOKIE['user']);
-
-        $stm->execute();
-
-        
-    }
-
+    // -------------------------------------------------------------------------------------------------------------------
     
     
     include "view/Warenkorbvorschau.php";
@@ -59,8 +61,6 @@ include "model/model.php";
 
 
 // Loginfunktion -------------------------------------------------------------------------------
-
-    include "view/Loginfeld.php";
 
     if(isset($_POST['Login']))
     {
@@ -89,24 +89,75 @@ include "model/model.php";
                 
             //     $stm->execute();
             // }
+            
+            echo $email;
+            echo "Bruder, du bist drin. ";
 
-            // Session ID erstellen --------------------------------------------------------
 
             
+            // User auf eingeloggt setzen -----------------------------------------------------------
 
-            $_SESSION['sid'] = md5(openssl_random_pseudo_bytes(32));
+                $stm = $pdo->prepare("UPDATE cookie SET logged_in = 1 WHERE cookie_user = :cookie_user");
+                $stm->bindParam(":cookie_user", $_COOKIE['user']);
 
-            // -----------------------------------------------------------------------------
+                $stm->execute();
+
+            // ---------------------------------------------------------------------------------------
+
+
+            // User ID in cookie Tabelle speichern -------------------------------------------------------
+
+                $stm = $pdo->prepare("SELECT n_id from nutzer WHERE n_email = :email");
+                $stm->bindParam(":email", $email);
+                $stm->execute();
+                $nid = $stm->fetchColumn(); // User ID raussuchen
+
+
+                $stm = $pdo->prepare("UPDATE cookie SET n_id = '".$nid."' WHERE cookie_user = :cookie_user");
+                $stm->bindParam(":cookie_user", $_COOKIE['user']);
+
+                $stm->execute(); // User ID in cookie Tabelle setzen
+
+            // -------------------------------------------------------------------------------------------
+
             
-            echo "Bruder, du bist drin.";
         }
         else
         {
             echo "Bruder, du hasts verkackt.";
-            echo $password. "<br>";
-            echo password_hash($password, PASSWORD_DEFAULT)."<br>";
         }
     }
+
+    if(isset($_POST['logout']))
+    {
+        // User auf ausgeloggt setzen -----------------------------------------------------------
+
+        $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
+        $stm->bindParam(":cookie_user", $_COOKIE['user']);
+
+        $stm->execute();
+
+    // ---------------------------------------------------------------------------------------
+    }
+
+
+
+    // Ist ein User eingeloggt? -----------------------
+
+        $eingeloggt = $pdo->query("SELECT logged_in from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+
+        if($eingeloggt == 0)
+        {
+            include "view/Loginfeld.php";
+        }
+        else
+        {
+            $n_id = $pdo->query("SELECT n_id from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+            $vorname = $pdo->query("SELECT n_vorname from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+            include "view/Willkommen.php";
+        }
+
+    // -----------------------------------------------
 
 // ---------------------------------------------------------------------------------------------------
 
@@ -143,6 +194,7 @@ include "model/model.php";
     }
 
 // ---------------------------------------------------------------------------------------------------------
+
 
 
 // Einzelansicht -----------------------------------------------------------------------------------------
@@ -229,6 +281,8 @@ include "model/model.php";
 
 // ---------------------------------------------------------------------------------------------------------------
 
+
+
 // Warenkorb -------------------------------------------------------------------------------------------------------
 
     if(isset($_GET['Warenkorb']))
@@ -268,6 +322,8 @@ include "model/model.php";
         
 
     }
+
+
 
 // --------------------------------------------------------------------------------------------------------------------
 
