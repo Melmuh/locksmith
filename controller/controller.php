@@ -3,6 +3,8 @@
 
 include "model/model.php";
 
+echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseite</a><br><br>";
+
 // Session ID erstellen --------------------------------------------------------------------------
 
     if(!isset($_COOKIE['user']))
@@ -240,7 +242,7 @@ include "model/model.php";
                 include "view/Restanzahl.php";
             }
     }
-    elseif(!isset($_GET['Warenkorb']))
+    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']))
     {
         // Alle Artikel ausgeben ----------------------------------------------------------------------------------
 
@@ -344,8 +346,84 @@ include "model/model.php";
 
 // Adminbereich --------------------------------------------------------------------------------------------------
 
-    $n_id = $pdo->query("SELECT n_id from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
-    $n_admin = $pdo->query("SELECT n_admin from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+    // Adminbereich einblenden -----------------------------------------------------------    
+
+        $eingeloggt = $pdo->query("SELECT logged_in from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+
+        if($eingeloggt == 1)
+        {
+            $n_id = $pdo->query("SELECT n_id from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+            $n_admin = $pdo->query("SELECT n_admin from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+
+            if($n_admin == 1 && !isset($_GET['admin']) && !isset($_GET['spiel']) && !isset($_GET['Warenkorb']))
+            {
+                include "view/Adminbereichsbutton.php";
+            }
+            elseif($n_admin == 1 && isset($_GET['admin']))
+            {
+                include "view/Adminbereich.php";
+            }
+        }
+
+    // ----------------------------------------------------------------------------------------------
+
+
+    // Artikel hinzufügen -------------------------------------------------------------------------
+
+        if(isset($_POST['arthin']))
+        {
+            $stm = $pdo->prepare("INSERT INTO spiele (s_name, s_hersteller, s_preis, s_text) VALUES (:s_name, :s_hersteller, :s_preis, :s_text)");
+            $stm->bindParam(":s_name", $_POST['s_name']);
+            $stm->bindParam(":s_hersteller", $_POST['s_hersteller']);
+            $stm->bindParam(":s_preis", $_POST['s_preis']);
+            $stm->bindParam(":s_text", $_POST['s_text']);
+            $stm->execute();
+        }
+
+    // --------------------------------------------------------------------------------------------
+
+    // Spiele bearbeiten --------------------------------------------------------------------------
+
+        if(isset($_POST['artaend'])) 
+        {
+            $stm = $pdo->prepare("UPDATE spiele SET s_name = :s_name, s_hersteller = :s_hersteller, s_preis = :s_preis, s_text = :s_text WHERE s_id = :s_id");
+            $stm->bindParam(":s_name", $_POST['s_name']);
+            $stm->bindParam(":s_hersteller", $_POST['s_hersteller']);
+            $stm->bindParam(":s_preis", $_POST['s_preis']);
+            $stm->bindParam(":s_text", $_POST['s_text']);
+            $stm->bindParam(":s_id", $_POST['s_id']);
+            $stm->execute();
+        }   
+
+    // --------------------------------------------------------------------------------------------
+
+    // Spiele löschen -----------------------------------------------------------------------------
+
+        if(isset($_POST['artdel']))
+        {
+            $stm = $pdo->prepare("DELETE FROM spiele WHERE s_id = :s_id");
+            $stm->bindParam(":s_id", $_POST['s_id']);
+            $stm->execute();
+        }
+
+    // --------------------------------------------------------------------------------------------
+
+    // Spiele auflisten zum Bearbeiten ------------------------------------------------------------
+
+        if($n_admin == 1 && isset($_GET['admin']))
+        {
+            $stm = $pdo->query("SELECT * FROM spiele");
+
+            while ($row = $stm->fetch())
+            {
+                include "view/Artikeladminbereich.php";
+            }
+        }
+
+    // --------------------------------------------------------------------------------------------
+
+
+   
 
 // ---------------------------------------------------------------------------------------------------------------
 
