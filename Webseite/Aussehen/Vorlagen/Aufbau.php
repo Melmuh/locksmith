@@ -1,3 +1,5 @@
+<?php ?>
+
 <!doctype html>
 <html lang="de">
   <head>
@@ -8,10 +10,7 @@
         <?php require('html/header.php') ?>
         <div class="row content">
             <main class="container-fluid col-12 col-md-8">
-                <div class="titel row">
-                    <h1>Title</h1>
-                </div>
-                <?php echo $content ?>
+                <?php require('Webseite/modules/controller/controller.php') ?>
             </main>
             <aside id="sidebar" class="col-4">Sidebar</aside>
         </div>

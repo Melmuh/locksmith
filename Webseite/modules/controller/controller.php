@@ -1,7 +1,6 @@
 <?php
 
-
-include "model/model.php";
+include "Webseite/modules/model/model.php";
 
 echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseite</a><br><br>";
 
@@ -56,7 +55,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
     // -------------------------------------------------------------------------------------------------------------------
     
     
-    include "view/Warenkorbvorschau.php";
+    include "Webseite/modules/view/Warenkorbvorschau.php";
     
 // ---------------------------------------------------------------------------------------------------
 
@@ -148,13 +147,13 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
         if($eingeloggt == 0)
         {
-            include "view/Loginfeld.php";
+            include "Webseite/modules/view/Loginfeld.php";
         }
         else
         {
             $n_id = $pdo->query("SELECT n_id from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
             $vorname = $pdo->query("SELECT n_vorname from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
-            include "view/Willkommen.php";
+            include "Webseite/modules/view/Willkommen.php";
         }
 
     // -----------------------------------------------
@@ -205,7 +204,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
     if(isset($_GET['reg']))
     {
-        include "view/reg.php";
+        include "Webseite/modules/view/reg.php";
     }
 
 // ---------------------------------------------------------------------------------------------------
@@ -221,7 +220,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
             while ($row = $stm->fetch())
             {
-                include "view/Einzelartikelinfos.php";
+                include "Webseite/modules/view/Einzelartikelinfos.php";
 
                 $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$row['s_id']."'")->fetchColumn();
                 if($restanzahl == 0)
@@ -231,15 +230,15 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
                 elseif($restanzahl == 1)
                 {
                     $restbestand = "Es ist nur noch 1 Artikel übrig!";
-                    include "view/Warenkorbeinlage.php";
+                    include "Webseite/modules/view/Warenkorbeinlage.php";
                 }
                 else
                 {
                     $restbestand = "Es sind noch ".$restanzahl." Artikel übrig!";
-                    include "view/Warenkorbeinlage.php";
+                    include "Webseite/modules/view/Warenkorbeinlage.php";
                 }
 
-                include "view/Restanzahl.php";
+                include "Webseite/modules/view/Restanzahl.php";
             }
     }
     elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']))
@@ -253,7 +252,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
                 while ($row = $stm->fetch())
                 {
-                    include "view/Artikel.php";
+                    include "Webseite/modules/view/Artikel.php";
                 }
             }
             else
@@ -261,7 +260,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
                 $stm = $pdo->query("SELECT * FROM spiele limit 6");
                 while ($row = $stm->fetch())
                 {
-                    include "view/Artikel.php";
+                    include "Webseite/modules/view/Artikel.php";
                 }
             }
 
@@ -287,7 +286,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
             for($i = 1; $i <= $seitenzahl; $i++)
             {
-                include "view/Seitenanzahl.php";
+                include "Webseite/modules/view/Seitenanzahl.php";
             }
 
         // ----------------------------------------------------------------------------------------------------
@@ -303,7 +302,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
     if(isset($_GET['Warenkorb']))
     {
 
-        include "view/Warenkorb.php";
+        include "Webseite/modules/view/Warenkorb.php";
 
 
         // Auflistung der Einträge -------------------------------------------------------------------------
@@ -313,7 +312,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
             {
                 $spielename = $pdo->query("SELECT s_name from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
                 $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$row['s_id']."'")->fetchColumn();
-                include "view/Warenkorbeinzelartikel.php";
+                include "Webseite/modules/view/Warenkorbeinzelartikel.php";
 
                 
             }
@@ -357,11 +356,11 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
             if($n_admin == 1 && !isset($_GET['admin']) && !isset($_GET['spiel']) && !isset($_GET['Warenkorb']))
             {
-                include "view/Adminbereichsbutton.php";
+                include "Webseite/modules/view/Adminbereichsbutton.php";
             }
             elseif($n_admin == 1 && isset($_GET['admin']))
             {
-                include "view/Adminbereich.php";
+                include "Webseite/modules/view/Adminbereich.php";
             }
         }
 
@@ -416,7 +415,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseit
 
             while ($row = $stm->fetch())
             {
-                include "view/Artikeladminbereich.php";
+                include "Webseite/modules/view/Artikeladminbereich.php";
             }
         }
 
