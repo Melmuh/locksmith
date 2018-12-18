@@ -10,7 +10,7 @@
 <title>Document</title>
 <style>
     body {
-        background-color: lightcoral;
+        background-color: #36648b;
     }
     .row {
         margin-bottom: 2em;
