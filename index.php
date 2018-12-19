@@ -1,6 +1,3 @@
 
 <?php
-// include "Webseite/Aussehen/Vorlagen/Aufbau.php";
-// include "Webseite/modules/controller/controller.php";
-//require_once('Webseite/modules/controller/controller.php');
-require('Webseite/Aussehen/Vorlagen/Aufbau.php');
+require('webseite/aussehen/vorlagen/aufbau.php');

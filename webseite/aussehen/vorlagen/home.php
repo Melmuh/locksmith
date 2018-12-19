@@ -10,9 +10,11 @@
         <?php require('html/header.php') ?>
         <div class="row content">
             <main class="container-fluid col-12 col-md-8">
-                <?php require('webseite/modules/controller/controller.php') ?>
+                <div> Herzlich Willkommen bei Locksmith! <br>
+                        Bei uns findest du eine große Auswahl an abgefahrenen PC-Games, von Abenteuer- über Simulations- bis zu Strategiespielen. 
+                        Für jeden ist etwas dabei - Viel Spaß beim Stöbern!
+                    </div>
             </main>
-            <aside id="sidebar" class="col-4">Sidebar</aside>
         </div>
 
         <?php require('html/footer.php') ?>
