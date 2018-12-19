@@ -14,6 +14,7 @@
                         Bei uns findest du eine große Auswahl an abgefahrenen PC-Games, von Abenteuer- über Simulations- bis zu Strategiespielen. 
                         Für jeden ist etwas dabei - Viel Spaß beim Stöbern!
                     </div>
+                    <?php require('webseite/modules/controller/controller.php') ?>
             </main>
         </div>
 
