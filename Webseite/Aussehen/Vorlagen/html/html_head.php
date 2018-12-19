@@ -18,4 +18,8 @@
     #sidebar {
         background-color: lightgray;
     }
+    h3{
+        color: #36648b;
+        line-height: 1.6;
+    }
 </style>

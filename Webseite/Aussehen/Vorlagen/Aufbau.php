@@ -12,7 +12,6 @@
             <main class="container-fluid col-12 col-md-8">
                 <?php require('webseite/modules/controller/controller.php') ?>
             </main>
-            <aside id="sidebar" class="col-4">Sidebar</aside>
         </div>
 
         <?php require('html/footer.php') ?>
