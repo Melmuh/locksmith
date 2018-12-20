@@ -23,5 +23,5 @@
             </div>
     </li>
     </ul>
-    <img src="webseite/aussehen/vorlagen/Images/header-min.jpg" alt="Responsive image" class="img-fluid">
+    <img src="/Onlineshop2/locksmith/webseite/aussehen/vorlagen/Images/header-min.jpg" alt="Responsive image" class="img-fluid">
 </header>

@@ -1,3 +1,2 @@
-
 <?php
-require('webseite/aussehen/vorlagen/home.php');
+require('webseite/aussehen/vorlagen/aufbau.php');
