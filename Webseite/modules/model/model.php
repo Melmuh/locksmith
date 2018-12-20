@@ -1,4 +1,5 @@
 <?php
-include "Webseite/config.php";
-//require_once('Webseite/config.php');
+include "webseite/config.php";
+//require_once('webseite/config.php');
 ?>
+

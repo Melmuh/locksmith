@@ -10,7 +10,8 @@
         <?php require('html/header.php') ?>
         <div class="row content">
             <main class="container-fluid col-12 col-md-8">
-                <?php require('webseite/modules/controller/controller.php') ?>
+                <div> Du hast dich erfolgreich abgemeldet!
+                    </div>
             </main>
         </div>
 

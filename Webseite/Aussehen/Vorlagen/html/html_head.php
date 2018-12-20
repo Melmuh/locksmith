@@ -10,12 +10,16 @@
 <title>Document</title>
 <style>
     body {
-        background-color: lightcoral;
+        background-color: #36648b;
     }
     .row {
         margin-bottom: 2em;
     }
     #sidebar {
         background-color: lightgray;
+    }
+    h3{
+        color: #36648b;
+        line-height: 1.6;
     }
 </style>
