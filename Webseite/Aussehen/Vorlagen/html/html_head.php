@@ -10,10 +10,12 @@
 <title>Document</title>
 <style>
     body {
-        background-color: #36648b;
+        background-color: #05275e;
     }
     .row {
         margin-bottom: 2em;
+        overflow: hidden;
+        height: 15em;
     }
     #sidebar {
         background-color: lightgray;
