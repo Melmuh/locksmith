@@ -12,10 +12,14 @@
     body {
         background-color: #05275e;
     }
+    header.row{
+        height: 15em;
+        max-height:100%;
+    }
     .row {
         margin-bottom: 2em;
         overflow: hidden;
-        height: 15em;
+        height: 100vh;
     }
     #sidebar {
         background-color: lightgray;
