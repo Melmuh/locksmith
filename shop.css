@@ -15,3 +15,22 @@ h3{
 .img-fluid{
     width: 100%;
 }
+body {
+    background-color: #05275e;
+}
+header.row{
+    height: 15em;
+    max-height:100%;
+    overflow: hidden;
+}
+.row {
+    margin-bottom: 2em;
+    height: 100%;
+}
+#sidebar {
+    background-color: lightgray;
+}
+h3{
+    color: #36648b;
+    line-height: 1.6;
+}

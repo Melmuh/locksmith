@@ -1,6 +1,6 @@
 <?php ?>
-<footer id="main-footer" class="fixed-bottom">
-    <ul class="nav justify-content-center bg-dark text-white" style="width:100%">
+<footer id="main-footer" class="page-footer" style="width:100%" >
+    <ul class="nav justify-content-center bg-dark text-white" >
         <li class="nav-item">
             <a class="nav-link" href="#">Datenschutz</a>
         </li>
