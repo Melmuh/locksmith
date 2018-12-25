@@ -15,11 +15,11 @@
     header.row{
         height: 15em;
         max-height:100%;
+        overflow: hidden;
     }
     .row {
         margin-bottom: 2em;
-        overflow: hidden;
-        height: 100vh;
+        height: 100%;
     }
     #sidebar {
         background-color: lightgray;
