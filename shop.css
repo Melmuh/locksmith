@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei');
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+
 *
 {
     margin: 0;
     padding: 0;
+    font-family: 'Dosis', light, sans-serif;
 }
 
 .Listenartikel
@@ -33,4 +37,48 @@ header.row{
 h3{
     color: #36648b;
     line-height: 1.6;
+}
+form.input-group{
+    display: block !important;
+}
+.input-group-prepend{
+    margin: 0.5em;
+}
+h2.ueberschrift{
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 15pt;
+    text-transform: uppercase;
+    margin: 1em 0;
+}
+.btn-outline-dark{
+    padding: 0.25em;
+    margin: 0.5em;
+}
+.table-dark{
+    border-color: black;
+    background-color: #c6c8ca !important;
+    border-style: solid;
+    border-width: 1px;
+    color: #05275e;
+}
+.input-group-prepend{
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.warenkorb-anzeige{
+    margin: 1em;
+    float: right;
+}
+
+.start-artikel{
+    border-color: black;
+    background-color: #ffffff!important;
+    border-style: solid;
+    border-width: 1px;
+    color: #05275e;
+    width: 50%;
+    display: grid;
+    
 }

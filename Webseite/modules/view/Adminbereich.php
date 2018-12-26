@@ -1,12 +1,27 @@
 <?php
 
-echo "<br><br>Artikel hinzufügen:<br>";
-echo "<form action=\"\" method=\"POST\">
-<br><input type=\"text\" name=\"s_name\" placeholder=\"Spieletitel\" required><br><br>
-<input type=\"text\" name=\"s_hersteller\" placeholder=\"Hersteller\" required><br><br>
-<input type=\"number\" name=\"s_preis\" placeholder=\"69.99\" min=\"0.01\" max=\"99.99\" step=\"0.01\" data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" required> €<br><br>
-<textarea name=\"s_text\" placeholder=\"Beschreibung\" cols=\"30\" rows=\"10\" required></textarea><br><br>
-<input type=\"submit\" name=\"arthin\" value=\"Artikel hinzufügen\">
-</form><br><br><br>";
+echo "<h2 class=\"ueberschrift\">Artikel hinzufügen:</h2>";
 
+echo "<form action=\"\" method=\"POST\" class=\"input-group mb-3\">
+<div class=\"input-group-prepend\">
+<span class=\"input-group-text\">Spieltitel</span>
+<input type=\"text\" name=\"s_name\" placeholder=\"z.B. Warcraft\" class=\"form-control\"  required>
+</div>
+<div class=\"input-group-prepend\">
+<span class=\"input-group-text\">Hersteller</span>
+<input type=\"text\" name=\"s_hersteller\" placeholder=\"z.B. Unisoft\" class=\"form-control\" required>
+</div>
+<div class=\"input-group-prepend\">
+<span class=\"input-group-text\">Preis</span>
+<input type=\"number\" name=\"s_preis\" placeholder=\"00.00€\" min=\"0.01\" max=\"199.99\" step=\"0.01\" data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" class=\"form-control\" required>
+</div>
+<div class=\"input-group-prepend\">
+<span class=\"input-group-text\">Beschreibung</span>
+<textarea name=\"s_text\" placeholder=\"Abenteuer, Rollenspiel\" cols=\"30\" rows=\"10\" class=\"form-control\" required></textarea>
+</div>
+
+<input type=\"submit\" name=\"arthin\" value=\"Artikel hinzufügen\" class=\"btn btn-outline-dark\">
+
+</form>";
+echo "<h2 class=\"ueberschrift\">Aktuelle Artikel:</h2>";
 ?>

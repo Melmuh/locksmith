@@ -1,10 +1,10 @@
 <?php
 
-echo " Hallo, ".$vorname."!";
+echo "<div class=\"willkommen\" Hallo, ".$vorname."!</div>";
 
 echo "<form method=\"POST\" action=\"\">
 
-<input type=\"submit\" name=\"logout\" value=\"Logout\">
+Nicht ".$vorname." ? <input type=\"submit\" name=\"logout\" value=\"Logout\" class=\"btn-outline-dark\">
 
 </form>";
 

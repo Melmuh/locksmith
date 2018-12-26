@@ -13,9 +13,9 @@
                 <?php require('webseite/modules/controller/controller.php') ?>
             </main>
         </div>
-
         <?php require('html/footer.php') ?>
-    </div> <!-- end: #page-wrapper -->
+      </div>
     <?php require('html/html_foot.php') ?>
+      <!-- end: #page-wrapper -->
   </body>
 </html>
