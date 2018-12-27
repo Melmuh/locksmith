@@ -50,6 +50,7 @@ p{
 }
 .text-right{
     float: right;
+    font-size: 30pt;
 }
 .row {
     height: 100%;
