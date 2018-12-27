@@ -3,7 +3,7 @@
 echo "
 <table class=\"table start-artikel\">
     <tr>
-        <td>
+        <td colspan=\"2\">
         <img src='/Onlineshop2/locksmith/webseite/aussehen/vorlagen/Images/call-of-duty.jpg' style=\"width:100%;\">
         </td>
     </tr>
@@ -15,13 +15,13 @@ echo "
             </a>
             </h2>
         </td>
-    <tr>
+    </tr>
     <tr>
         <td>
-            Hersteller:".$row['s_hersteller']."
+            Hersteller: ".$row['s_hersteller']."
         </td>
         <td>
-            F&uuml;r".$row['s_preis']." €
+            F&uuml;r ".$row['s_preis']."€
         </td>
     </tr>
 </table>";

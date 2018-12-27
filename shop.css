@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Dosis', light, sans-serif;
+    font-size: 15pt;
 }
 h3{
     color: #36648b;
@@ -54,6 +55,7 @@ p{
 }
 .row {
     height: 100%;
+    margin: 0 !important;
 }
 .top{
     background-color: #05275e;
@@ -70,7 +72,7 @@ form.input-group{
 .input-group-prepend{
     margin: 0.5em;
 }
-h2.ueberschrift{
+h2{
     font-family: 'ZCOOL XiaoWei', serif;
     font-size: 15pt;
     text-transform: uppercase;
@@ -98,16 +100,25 @@ h2.ueberschrift{
     float: right;
 }
 
-.start-artikel{
-    border-color: black;
+table.start-artikel{
+    /* border-color: black; */
     background-color: #ffffff!important;
-    border-style: solid;
-    border-width: 1px;
+    /* border-style: solid; */
+    /* border-width: 1px; */
     color: #05275e;
-    width: 50%;
-    display: grid;
-    
+    width: 45%;
+    display: table;
+    float: left;   
+    margin: 0.5em;
+}
+table.start-artikel tbody tr{
+    border-style: solid;
+    border-color: #000;
+    border-width: 3px;
 }
 .willkommen{
-    margin: 1em;
+    margin: 1em 0;
+}
+.ueberschrift{
+    font-size: 33pt;
 }

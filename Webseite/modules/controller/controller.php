@@ -2,7 +2,7 @@
 
 include "webseite/modules/model/model.php";
 
-echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Zur Startseite</a><br><br>";
+echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><br>";
 
 
 // Session ID erstellen ------------------------------------------------------------------------------

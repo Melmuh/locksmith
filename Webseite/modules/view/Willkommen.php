@@ -1,8 +1,8 @@
 <?php
 
-echo "<h2>Willkommen bei locksmith!</h2> 
+echo "<div class=\"text-center\"><h2 class=\"ueberschrift\">Willkommen bei locksmith!</h2> 
 Dein PC-Gaming Online-Shop des Vertrauens. 
-Von gut bist böse, von klein bis groß - hier findet jeder sein Herzensstück!</h2>";
+Von gut bist böse, von klein bis groß - hier findet jeder sein Herzensstück!</div>";
 
 echo "<div class=\"willkommen\"> Hallo, ".$vorname."!</div>";
 

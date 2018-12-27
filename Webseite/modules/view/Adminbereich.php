@@ -1,6 +1,6 @@
 <?php
 
-echo "<h2 class=\"ueberschrift\">Artikel hinzufügen:</h2>";
+echo "<h2>Artikel hinzufügen:</h2>";
 
 echo "<form action=\"\" method=\"POST\" class=\"input-group mb-3\">
 <div class=\"input-group-prepend\">
