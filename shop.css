@@ -7,12 +7,6 @@
     padding: 0;
     font-family: 'Dosis', light, sans-serif;
 }
-
-.Listenartikel
-{
-    padding: 20px;
-}
-
 h3{
     color: #36648b;
 }
@@ -20,19 +14,50 @@ h3{
     width: 100%;
 }
 body {
-    background-color: #05275e;
+    background-image: url(../locksmith/webseite/aussehen/vorlagen/Images/background.jpg);
+    background-position: left top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+main{
+    background-color:rgba(255, 255, 255, 0.5);
+}
+.background-inner{
+    background: #ffffff;
+    margin: 1em;
+    padding: 1em;
 }
 header.row{
-    height: 15em;
     max-height:100%;
     overflow: hidden;
+    /* margin-top: 5em; */
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 5em;
+    margin: 0 !important;
+    margin-bottom: 2em !important;
+    display: block;
+}
+p{
+    margin-bottom: 0 !important;
+}
+.logo{
+    display: block;
+    padding: 1em;
+}
+.text-left{
+    float: left;
+}
+.text-right{
+    float: right;
 }
 .row {
-    margin-bottom: 2em;
     height: 100%;
 }
-#sidebar {
-    background-color: lightgray;
+.top{
+    background-color: #05275e;
+    color: #ffffff;
+    margin: 2em;
 }
 h3{
     color: #36648b;
@@ -68,7 +93,7 @@ h2.ueberschrift{
 }
 
 .warenkorb-anzeige{
-    margin: 1em;
+    margin-top: -3em;
     float: right;
 }
 
@@ -81,4 +106,7 @@ h2.ueberschrift{
     width: 50%;
     display: grid;
     
+}
+.willkommen{
+    margin: 1em;
 }
