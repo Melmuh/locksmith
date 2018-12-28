@@ -214,7 +214,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Einzelansicht -------------------------------------------------------------------------------------
 
-    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']) && !isset($_GET['bestellen']))
+    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']) && !isset($_GET['bestellen']) && !isset($_GET['vielen']))
     {
         
         $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'"); // muss noch gebindet werden !!!!
@@ -242,7 +242,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
                 include "webseite/modules/view/Restanzahl.php";
             }
     }
-    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']) && !isset($_GET['bestellen']))
+    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']) && !isset($_GET['bestellen']) && !isset($_GET['vielen']))
     {
         // Alle Artikel ausgeben ----------------------------------------------------------------------------------
 
@@ -380,21 +380,33 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     if(isset($_POST['kaufen']))
     {
         
+        
         // Bestandskorrektur ---------------------------------------------------------------------------------------------    
         
             $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
 
             while($zeile = $test->fetch())
             {
-                $kaufanzahl = "LIMIT ".$zeile['s_menge'];
-                $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
-                $stm->bindParam(":s_id", $zeile['s_id']);
-                $stm->execute();
+                // $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$zeile['s_id']."'")->fetchColumn();
+                // if($restanzahl == 0)
+                // {
+                //     echo "Es sind nicht genügend Keys des Spiels mit der ID ".$zeile['s_id']." vorhanden!";
+                //     break;
+                // }
+                // else
+                // {
+                    $kaufanzahl = "LIMIT ".$zeile['s_menge'];
+                    $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
+                    $stm->bindParam(":s_id", $zeile['s_id']);
+                    $stm->execute();
             }
+                
+            // }
 
             $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
             $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->execute();
+            
 
         // -------------------------------------------------------------------------------------------------------------------
 
@@ -405,14 +417,14 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
             $zeit = date('G:i');
 
             $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
-            $benutzeremail = $pdo->query("SELECT n_email from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
-            mail($benutzeremail, "Ihr Kauf bei locksmith.com!", "Inhalt der Email, funktioniert natürlich nur auf einem echten Server!", "From: Absender <locksmith@euredomain.de>");
+            // $benutzeremail = $pdo->query("SELECT n_email from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+            // mail($benutzeremail, "Ihr Kauf bei locksmith.com!", "Inhalt der Email, funktioniert natürlich nur auf einem echten Server!", "From: Absender <locksmith@euredomain.de>");
 
             $stm = $pdo->prepare("INSERT INTO kauf (n_id, k_datum, k_zeit, k_spiele, k_preis) VALUES (:n_id, :k_datum, :k_zeit, :k_spiele, :k_preis)");
             $stm->bindParam(":n_id", $n_id);
             $stm->bindParam(":k_datum", $datum);
             $stm->bindParam(":k_zeit", $zeit);
-            $stm->bindParam(":k_spiele", $bestellung);
+            $stm->bindParam(":k_spiele", $_POST['bestellung']);
             $stm->bindParam(":k_preis", $_POST['endpreis']);
             $stm->execute();
 
@@ -422,6 +434,15 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // ---------------------------------------------------------------------------------------------------
 
+
+// Danke -------------------------------------------------------------------------------------------------
+
+    if(isset($_GET['vielen']))
+    {
+        include "webseite/modules/view/danke.php";
+    }
+
+// ----------------------------------------------------------------------------------------------------------
 
 
 
@@ -509,17 +530,18 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 // ---------------------------------------------------------------------------------------------------
 
 
+
 // Locks erstellen DEBUGFEAUTURE ----------------------------------------------------------------------------------
 
-echo "<form action=\"\" method=\"POST\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
+    echo "<form action=\"\" method=\"POST\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
 
-if(isset($_POST['lockerstellen']))
-{
-    $lockgenerate = md5(openssl_random_pseudo_bytes(32));
-    $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, 1)");
-    $stm->bindParam(":locks", $lockgenerate);
-    $stm->execute();
-}
+    if(isset($_POST['lockerstellen']))
+    {
+        $lockgenerate = md5(openssl_random_pseudo_bytes(32));
+        $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, 1)");
+        $stm->bindParam(":locks", $lockgenerate);
+        $stm->execute();
+    }
 
 // --------------------------------------------------------------------------------------------------------------
 
