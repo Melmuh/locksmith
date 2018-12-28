@@ -379,8 +379,9 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
     if(isset($_POST['kaufen']))
     {
-        // Bestellung in Tabelle schreiben -------------------------------------------------------------------------------------
-
+        
+        // Bestandskorrektur ---------------------------------------------------------------------------------------------    
+        
             $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
 
             while($zeile = $test->fetch())
@@ -394,6 +395,10 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
             $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
             $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->execute();
+
+        // -------------------------------------------------------------------------------------------------------------------
+
+        // Bestellung in Tabelle schreiben -------------------------------------------------------------------------------------
 
             $datum = date('d.m.Y');
             date_default_timezone_set("Europe/Berlin");
@@ -413,11 +418,6 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
         // -----------------------------------------------------------------------------------------------------------------------
 
-        // Bestände korrigieren --------------------------------------------------------------------------------------------------
-
-          
-
-        // ------------------------------------------------------------------------------------------------------------------------
     }
 
 // ---------------------------------------------------------------------------------------------------
@@ -508,5 +508,19 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // ---------------------------------------------------------------------------------------------------
 
+
+// Locks erstellen DEBUGFEAUTURE ----------------------------------------------------------------------------------
+
+echo "<form action=\"\" method=\"POST\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
+
+if(isset($_POST['lockerstellen']))
+{
+    $lockgenerate = md5(openssl_random_pseudo_bytes(32));
+    $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, 1)");
+    $stm->bindParam(":locks", $lockgenerate);
+    $stm->execute();
+}
+
+// --------------------------------------------------------------------------------------------------------------
 
 ?>
