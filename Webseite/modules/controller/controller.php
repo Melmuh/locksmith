@@ -353,29 +353,71 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     {
         include "webseite/modules/view/Checkout.php";
 
-        $stm = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
+        // Warenkorb nochmals auflisten ---------------------------------------------------------------------------
 
-        while ($row = $stm->fetch())
-        {
-            $spielename = $pdo->query("SELECT s_name from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
-            $preis = $pdo->query("SELECT s_preis from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+            $stm = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
 
-            include "webseite/modules/view/Checkouteinzelartikel.php";
-        }
-        
-        if($eingeloggt == 1)
-        {
-            include "webseite/modules/view/kaufen.php";
-        }
-        else
-        {
-           echo "Sie müssen sich erst einloggen, um etwas zu kaufen!";
-        }
+            while ($row = $stm->fetch())
+            {
+                $spielename = $pdo->query("SELECT s_name from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+                $preis = $pdo->query("SELECT s_preis from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+
+                include "webseite/modules/view/Checkouteinzelartikel.php";
+            }
+            
+            if($eingeloggt == 1)
+            {
+                include "webseite/modules/view/kaufen.php";
+            }
+            else
+            {
+                echo "Sie müssen sich erst einloggen, um etwas zu kaufen!";
+            }
+
+        // ------------------------------------------------------------------------------------------------------------
     }
 
     if(isset($_POST['kaufen']))
     {
-        
+        // Bestellung in Tabelle schreiben -------------------------------------------------------------------------------------
+
+            $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
+
+            while($zeile = $test->fetch())
+            {
+                $kaufanzahl = "LIMIT ".$zeile['s_menge'];
+                $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
+                $stm->bindParam(":s_id", $zeile['s_id']);
+                $stm->execute();
+            }
+
+            $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
+            $stm->bindParam(":cookie_user", $_COOKIE['user']);
+            $stm->execute();
+
+            $datum = date('d.m.Y');
+            date_default_timezone_set("Europe/Berlin");
+            $zeit = date('G:i');
+
+            $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+            $benutzeremail = $pdo->query("SELECT n_email from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+            mail($benutzeremail, "Ihr Kauf bei locksmith.com!", "Inhalt der Email, funktioniert natürlich nur auf einem echten Server!", "From: Absender <locksmith@euredomain.de>");
+
+            $stm = $pdo->prepare("INSERT INTO kauf (n_id, k_datum, k_zeit, k_spiele, k_preis) VALUES (:n_id, :k_datum, :k_zeit, :k_spiele, :k_preis)");
+            $stm->bindParam(":n_id", $n_id);
+            $stm->bindParam(":k_datum", $datum);
+            $stm->bindParam(":k_zeit", $zeit);
+            $stm->bindParam(":k_spiele", $bestellung);
+            $stm->bindParam(":k_preis", $_POST['endpreis']);
+            $stm->execute();
+
+        // -----------------------------------------------------------------------------------------------------------------------
+
+        // Bestände korrigieren --------------------------------------------------------------------------------------------------
+
+          
+
+        // ------------------------------------------------------------------------------------------------------------------------
     }
 
 // ---------------------------------------------------------------------------------------------------
