@@ -214,7 +214,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Einzelansicht -------------------------------------------------------------------------------------
 
-    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']))
+    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']) && !isset($_GET['bestellen']))
     {
         
         $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'"); // muss noch gebindet werden !!!!
@@ -242,7 +242,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
                 include "webseite/modules/view/Restanzahl.php";
             }
     }
-    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']))
+    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']) && !isset($_GET['bestellen']))
     {
         // Alle Artikel ausgeben ----------------------------------------------------------------------------------
 
@@ -302,9 +302,31 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
     if(isset($_GET['Warenkorb']))
     {
-
         include "webseite/modules/view/Warenkorb.php";
 
+        // Update der Anzahl ---------------------------------------------------------------------------------
+
+            if(isset($_POST['update']))
+            {
+                $stm = $pdo->prepare("UPDATE warenkorb SET s_menge = :s_menge WHERE w_id = :w_id");
+                $stm->bindParam(":s_menge", $_POST['neuanzahl']);
+                $stm->bindParam(":w_id", $_POST['wid']);
+                $stm->execute();
+            }
+
+        // ---------------------------------------------------------------------------------------------------
+
+        // Löschen der Einzeleinträge -----------------------------------------------------------------
+
+            if(isset($_POST['del']))
+            {
+                $stm = $pdo->prepare("DELETE FROM warenkorb WHERE w_id = '".$_POST['wid']."'");
+                // $stm->bindParam("w_id", $_POST['wid']);
+                $stm->execute();
+                header("Refresh:0");
+            }
+
+        // ---------------------------------------------------------------------------------------------
 
         // Auflistung der Einträge -------------------------------------------------------------------------
 
@@ -317,30 +339,47 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
                 
             }
-
-
-            // Löschen der Einzeleinträge -----------------------------------------------------------------
-
-                if(isset($_POST['del']))
-                {
-                    $stm = $pdo->prepare("DELETE FROM warenkorb WHERE w_id = '".$_POST['wid']."'");
-                    // $stm->bindParam("w_id", $_POST['wid']);
-                    $stm->execute();
-
-                    header("Refresh:0");
-                }
-
-            // ---------------------------------------------------------------------------------------------
-
-        // ------------------------------------------------------------------------------------------------------
-
-        
-
+                
+        // -------------------------------------------------------------------------------------------------------
     }
 
+// ----------------------------------------------------------------------------------------------------------------
 
+
+
+// Checkout -------------------------------------------------------------------------------------------------------
+
+    if(isset($_GET['bestellen']))
+    {
+        include "webseite/modules/view/Checkout.php";
+
+        $stm = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
+
+        while ($row = $stm->fetch())
+        {
+            $spielename = $pdo->query("SELECT s_name from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+            $preis = $pdo->query("SELECT s_preis from spiele WHERE s_id = '".$row['s_id']."'")->fetchColumn();
+
+            include "webseite/modules/view/Checkouteinzelartikel.php";
+        }
+        
+        if($eingeloggt == 1)
+        {
+            include "webseite/modules/view/kaufen.php";
+        }
+        else
+        {
+           echo "Sie müssen sich erst einloggen, um etwas zu kaufen!";
+        }
+    }
+
+    if(isset($_POST['kaufen']))
+    {
+        
+    }
 
 // ---------------------------------------------------------------------------------------------------
+
 
 
 
@@ -363,7 +402,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
             {
                 include "webseite/modules/view/Adminbereich.php";
             }
-        }
+        
 
     // ----------------------------------------------------------------------------------------------
 
@@ -423,7 +462,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     // --------------------------------------------------------------------------------------------
 
 
-   
+    }
 
 // ---------------------------------------------------------------------------------------------------
 
