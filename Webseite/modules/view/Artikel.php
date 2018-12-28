@@ -1,28 +1,21 @@
 <?php
 
 echo "
-<table class=\"table start-artikel\">
-    <tr>
-        <td colspan=\"2\">
-        <img src='/Onlineshop2/locksmith/webseite/aussehen/vorlagen/Images/call-of-duty.jpg' style=\"width:100%;\">
-        </td>
-    </tr>
-    <tr>
-        <td colspan=\"2\">
-            <h2>
-            <a href=\"?spiel=".$row['s_name']."\">
+<div class=\"card\" style=\"width: 19rem; float:left;\">
+    <img src='/Onlineshop2/locksmith/webseite/aussehen/vorlagen/Images/call-of-duty.jpg' style=\"width:100%;\" class=\"card-img-top\">
+    <div class=\"card-body\">
+        <h2 class=\"card-title\">
             ".$row['s_name']."
-            </a>
-            </h2>
-        </td>
-    </tr>
-    <tr>
-        <td>
+        </h2>
+        <p class=\"card-text\">
             Hersteller: ".$row['s_hersteller']."
-        </td>
-        <td>
+        </p>
+        <p class=\"card-text\">
             F&uuml;r ".$row['s_preis']."€
-        </td>
-    </tr>
-</table>";
+        </p>
+        <a href=\"?spiel=".$row['s_name']."\" class=\"btn btn-primary\">
+            Kaufen
+        </a>
+    </div>
+</div>";
 ?>

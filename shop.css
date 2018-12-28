@@ -73,7 +73,6 @@ form.input-group{
     margin: 0.5em;
 }
 h2{
-    font-family: 'ZCOOL XiaoWei', serif;
     font-size: 15pt;
     text-transform: uppercase;
     margin: 1em 0;
@@ -121,4 +120,20 @@ table.start-artikel tbody tr{
 }
 .ueberschrift{
     font-size: 33pt;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.progress{
+    display: flex;
+    height: 3rem;
+    overflow: hidden;
+    font-size: 0.75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    float: right;
+    margin: -5em -1em;
+}
+.progress-bar{
+    background-color: #000;
+    padding: 1em;
 }
