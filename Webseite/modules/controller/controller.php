@@ -40,10 +40,11 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
         // Artikel in den Warenkorb legen ohne Login ----------------------------------------------------------------------------------
 
-            $stm = $pdo->prepare("INSERT INTO warenkorb (cookie_user, s_id, s_menge) VALUES (:cookie_user, :s_id, :s_menge)");
+            $stm = $pdo->prepare("INSERT INTO warenkorb (cookie_user, s_id, s_menge, s_name) VALUES (:cookie_user, :s_id, :s_menge, :s_name)");
             $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->bindParam(":s_id", $_POST['sid']);
             $stm->bindParam(":s_menge", $_POST['artanzahl']);
+            $stm->bindParam(":s_name", $_POST['sname']);
             $stm->execute();
 
         // ----------------------------------------------------------------------------------------------------------------------------
@@ -563,13 +564,14 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Locks erstellen DEBUGFEAUTURE ----------------------------------------------------------------------------------
 
-    echo "<form action=\"\" method=\"POST\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
+    echo "<form action=\"\" method=\"POST\"><input type=\"number\" name=\"spielid\" value=\"1\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
 
     if(isset($_POST['lockerstellen']))
     {
         $lockgenerate = md5(openssl_random_pseudo_bytes(32));
-        $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, 1)");
+        $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, :s_id)");
         $stm->bindParam(":locks", $lockgenerate);
+        $stm->bindParam(":s_id", $_POST['spielid']);
         $stm->execute();
     }
 
