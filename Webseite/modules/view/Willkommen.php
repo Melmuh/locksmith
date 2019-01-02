@@ -12,4 +12,12 @@ Nicht ".$vorname." ? <input type=\"submit\" name=\"logout\" value=\"Logout\" cla
 
 </form>";
 
+if(!isset($_GET['mein']))
+{
+    echo "<a href=\"?mein=bereich\">Mein Bereich</a>";
+}
+
+
+
+
 ?>

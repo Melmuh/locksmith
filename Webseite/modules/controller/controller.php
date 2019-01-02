@@ -5,6 +5,8 @@ include "webseite/modules/model/model.php";
 echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><br>";
 
 
+
+
 // Session ID erstellen ------------------------------------------------------------------------------
 
     if(!isset($_COOKIE['user']))
@@ -38,10 +40,11 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
         // Artikel in den Warenkorb legen ohne Login ----------------------------------------------------------------------------------
 
-            $stm = $pdo->prepare("INSERT INTO warenkorb (cookie_user, s_id, s_menge) VALUES (:cookie_user, :s_id, :s_menge)");
+            $stm = $pdo->prepare("INSERT INTO warenkorb (cookie_user, s_id, s_menge, s_name) VALUES (:cookie_user, :s_id, :s_menge, :s_name)");
             $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->bindParam(":s_id", $_POST['sid']);
             $stm->bindParam(":s_menge", $_POST['artanzahl']);
+            $stm->bindParam(":s_name", $_POST['sname']);
             $stm->execute();
 
         // ----------------------------------------------------------------------------------------------------------------------------
@@ -67,8 +70,8 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     if(isset($_POST['Login']))
     {
         // Get Parameters
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
 
         // Prepare Statements
         $statement = $pdo->prepare("SELECT hashwert FROM nutzer WHERE n_email = :email");
@@ -149,6 +152,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
         if($eingeloggt == 0)
         {
             include "webseite/modules/view/Loginfeld.php";
+            
         }
         else
         {
@@ -171,8 +175,8 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     {
         
         // Get Parameters
-        $n_name = $_POST['n_name'];
-        $n_vorname = $_POST['n_vorname'];
+        $n_name = htmlspecialchars($_POST['n_name']);
+        $n_vorname = htmlspecialchars($_POST['n_vorname']);
         $n_email = $_POST['n_email'];
         $n_pass = $_POST['n_pass'];
 
@@ -185,7 +189,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
             if($emailvergeben > 0)
             {
                 $_GET['reg'] = "Registrieren";
-                echo "loool die gibts schon!!!";
+                echo "Diese E-Mail ist bereits vergeben.";
             }
             else
             {
@@ -214,7 +218,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Einzelansicht -------------------------------------------------------------------------------------
 
-    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']) && !isset($_GET['bestellen']) && !isset($_GET['vielen']))
+    if(isset($_GET['spiel']) && !isset($_GET['Warenkorb']) && !isset($_GET['bestellen']) && !isset($_GET['vielen']) && !isset($_GET['mein']))
     {
         
         $stm = $pdo->query("SELECT * FROM spiele WHERE s_name = '".$_GET['spiel']."'"); // muss noch gebindet werden !!!!
@@ -242,7 +246,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
                 include "webseite/modules/view/Restanzahl.php";
             }
     }
-    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']) && !isset($_GET['bestellen']) && !isset($_GET['vielen']))
+    elseif(!isset($_GET['Warenkorb']) && !isset($_GET['admin']) && !isset($_GET['bestellen']) && !isset($_GET['vielen']) && !isset($_GET['mein']))
     {
         // Alle Artikel ausgeben ----------------------------------------------------------------------------------
 
@@ -295,6 +299,33 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 
 // ---------------------------------------------------------------------------------------------------
+
+
+
+// Mein Bereich ------------------------------------------------------------------------------------
+
+    if(isset($_GET['mein']))
+    {
+        if($eingeloggt == 1)
+        {
+            echo "<h2>Meine Bestellungen:</h2><hr>";
+
+            $stm = $pdo->prepare("SELECT * FROM kauf WHERE n_id = :n_id");
+            $stm->bindParam(":n_id", $n_id);
+            $stm->execute();
+            
+            while($row = $stm->fetch())
+            {
+                include "webseite/modules/view/Meinbereicheinzelartikel.php";
+            }
+        }
+        else
+        {
+            echo "Logge dich ein um diesen Bereich zu benutzen!";
+        }
+    }
+
+// -------------------------------------------------------------------------------------------------
 
 
 
@@ -533,13 +564,14 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Locks erstellen DEBUGFEAUTURE ----------------------------------------------------------------------------------
 
-    echo "<form action=\"\" method=\"POST\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
+    echo "<form action=\"\" method=\"POST\"><input type=\"number\" name=\"spielid\" value=\"1\"><input type=\"submit\" name=\"lockerstellen\" value=\"lock\"></form>";
 
     if(isset($_POST['lockerstellen']))
     {
         $lockgenerate = md5(openssl_random_pseudo_bytes(32));
-        $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, 1)");
+        $stm = $pdo->prepare("INSERT INTO locks (locks, s_id) VALUES (:locks, :s_id)");
         $stm->bindParam(":locks", $lockgenerate);
+        $stm->bindParam(":s_id", $_POST['spielid']);
         $stm->execute();
     }
 
