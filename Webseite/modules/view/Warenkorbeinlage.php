@@ -5,7 +5,6 @@ echo "<form method=\"POST\" action=\"\"><input type=\"number\" name=\"artanzahl\
         <input type=\"hidden\" name=\"sname\" value=\"".$row['s_name']."\">
         <input type=\"submit\" name=\"korblegen\" value=\"In den Warenkorb legen\" class=\"btn-outline-dark\">
         </form>";
-echo $row['s_id'];
 
 
 ?>
