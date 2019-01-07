@@ -533,11 +533,19 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
         if(isset($_POST['arthin']))
         {
-            $stm = $pdo->prepare("INSERT INTO spiele (s_name, s_hersteller, s_preis, s_text) VALUES (:s_name, :s_hersteller, :s_preis, :s_text)");
+            $check = getimagesize($_FILES["image"]["tmp_name"]);
+            if($check !== false)
+            {
+                $image = file_get_contents($_FILES["image"]["tmp_name"]);
+                echo "jo";
+            }
+            
+            $stm = $pdo->prepare("INSERT INTO spiele (s_name, s_hersteller, s_preis, s_text, s_bild) VALUES (:s_name, :s_hersteller, :s_preis, :s_text, :s_bild)");
             $stm->bindParam(":s_name", $_POST['s_name']);
             $stm->bindParam(":s_hersteller", $_POST['s_hersteller']);
             $stm->bindParam(":s_preis", $_POST['s_preis']);
             $stm->bindParam(":s_text", $_POST['s_text']);
+            $stm->bindParam(":s_bild", $image);
             $stm->execute();
         }
 

@@ -3,8 +3,11 @@
 echo "
 <table class=\"table start-artikel\">
     <tr>
-        <td colspan=\"2\">
-        <img src='/Onlineshop2/locksmith/webseite/aussehen/vorlagen/Images/call-of-duty.jpg' style=\"width:100%;\">
+        <td colspan=\"2\">";
+
+        $image = base64_encode($row['s_bild']);
+
+        echo "<img src=\"data:image/jpeg;base64, ".$image."\" style=\"width:100%;\">
         </td>
     </tr>
     <tr>
