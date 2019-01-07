@@ -7,9 +7,17 @@
     padding: 0;
     font-family: 'Dosis', light, sans-serif;
     font-size: 15pt;
+    color: #ffffff;
+}
+a.menutop{
+    margin: 1em;
+    margin-left: 0;
+    text-decoration: #ffffff;
+    text-decoration-line: underline;
+    font-size: 20pt;
 }
 h3{
-    color: #36648b;
+    color: #ffffff;
 }
 .img-fluid{
     width: 100%;
@@ -22,10 +30,10 @@ body {
     background-attachment: fixed;
 }
 main{
-    background-color:rgba(255, 255, 255, 0.5);
+    background-color:  rgba(255, 255, 255, 0.5);
 }
 .background-inner{
-    background: #ffffff;
+    background: #000000;
     margin: 1em;
     padding: 1em;
 }
@@ -58,12 +66,12 @@ p{
     margin: 0 !important;
 }
 .top{
-    background-color: #05275e;
+    background-color: #000000;
     color: #ffffff;
     margin: 2em;
 }
 h3{
-    color: #36648b;
+    color: #ffffff;
     line-height: 1.6;
 }
 form.input-group{
@@ -89,7 +97,7 @@ h2{
     color: #05275e;
 }
 .input-group-prepend{
-    border-color: black;
+    border-color: #ff;
     border-style: solid;
     border-width: 1px;
 }
@@ -101,18 +109,18 @@ h2{
 
 table.start-artikel{
     /* border-color: black; */
-    background-color: #ffffff!important;
+    background-color: #000000!important;
     /* border-style: solid; */
     /* border-width: 1px; */
-    color: #05275e;
+    color: #ffffff;
     width: 45%;
     display: table;
-    float: left;   
+    float: left;
     margin: 0.5em;
 }
 table.start-artikel tbody tr{
     border-style: solid;
-    border-color: #000;
+    border-color: #ffffff;
     border-width: 3px;
 }
 .willkommen{
@@ -131,9 +139,13 @@ table.start-artikel tbody tr{
     background-color: #e9ecef;
     border-radius: .25rem;
     float: right;
-    margin: -5em -1em;
 }
 .progress-bar{
     background-color: #000;
     padding: 1em;
+}
+.card{
+    background-color: #000;
+    border-color: #ffffff;
+    margin: 0.15em;
 }
