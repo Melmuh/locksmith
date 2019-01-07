@@ -284,7 +284,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
             {
                 $rest = $Artikelanzahl % 6;
                 $anzahlohnerest = $Artikelanzahl - $rest;
-                $seitenzahl = $anzahlohnerest / 6 + 1;
+                $seitenzahl = $anzahlohnerest / 6;
             }
 
 
@@ -427,7 +427,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
                     $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$zeile['s_id']."'")->fetchColumn();
                     $pdo == NULL;
 
-                    echo $restanzahl;
+                    // echo $restanzahl;
 
                     if($restanzahl == 0)
                     {
