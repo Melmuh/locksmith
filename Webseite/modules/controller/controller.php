@@ -408,6 +408,8 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
         // ------------------------------------------------------------------------------------------------------------
     }
 
+
+
     if(isset($_POST['kaufen']))
     {
         
@@ -416,28 +418,54 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
         
             $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
 
-            while($zeile = $test->fetch())
-            {
-                // $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$zeile['s_id']."'")->fetchColumn();
-                // if($restanzahl == 0)
-                // {
-                //     echo "Es sind nicht genügend Keys des Spiels mit der ID ".$zeile['s_id']." vorhanden!";
-                //     break;
-                // }
-                // else
-                // {
-                    $kaufanzahl = "LIMIT ".$zeile['s_menge'];
-                    $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
-                    $stm->bindParam(":s_id", $zeile['s_id']);
-                    $stm->execute();
-            }
-                
-            // }
+            // Testen, ob noch genügen Keys vorhanden sind ---------------------------------------------------------------
 
-            $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
-            $stm->bindParam(":cookie_user", $_COOKIE['user']);
-            $stm->execute();
+                $zahl = 0;
+
+                while($zeile = $test->fetch())
+                {
+                    $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$zeile['s_id']."'")->fetchColumn();
+                    $pdo == NULL;
+
+                    echo $restanzahl;
+
+                    if($restanzahl == 0)
+                    {
+                        $zahl + 1;
+                    }
+                }
             
+            // -----------------------------------------------------------------------------------------------------------
+            
+            if($zahl == 0)
+            {
+                $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
+            
+                // Schlüssel löschen --------------------------------------------------------------------------------------
+
+                    while($zeile = $test->fetch())
+                    {
+                        $kaufanzahl = "LIMIT ".$zeile['s_menge'];
+                        $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
+                        $stm->bindParam(":s_id", $zeile['s_id']);
+                        $stm->execute();
+                    }
+
+                // -----------------------------------------------------------------------------------------------------------
+
+                // Warenkorb löschen -----------------------------------------------------------------------------------------
+
+                    $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
+                    $stm->bindParam(":cookie_user", $_COOKIE['user']);
+                    $stm->execute();
+
+                // ------------------------------------------------------------------------------------------------------------
+
+            }
+            else
+            {
+                echo "Es sind nicht mehr genügend Keyes da.";
+            }
 
         // -------------------------------------------------------------------------------------------------------------------
 
