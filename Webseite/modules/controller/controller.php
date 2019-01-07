@@ -9,7 +9,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Session ID erstellen ------------------------------------------------------------------------------
 
-    if(!isset($_COOKIE['user']))
+    if($_COOKIE['user'] == 0)
     {
 
         // cookie User erstellen, falls noch nicht getan.
@@ -135,10 +135,16 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     {
         // User auf ausgeloggt setzen -----------------------------------------------------------
 
-            $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
-            $stm->bindParam(":cookie_user", $_COOKIE['user']);
+            // $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
+            // $stm->bindParam(":cookie_user", $_COOKIE['user']);
 
+            // $stm->execute();
+
+            $stm = $pdo->prepare("DELETE FROM cookie WHERE cookie_user = :cookie_user");
+            $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->execute();
+            setcookie('user', 0, time()+31556926);
+            $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
 
         // ---------------------------------------------------------------------------------------
     }
