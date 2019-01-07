@@ -2,7 +2,7 @@
 
 echo "<h2>Artikel hinzufügen:</h2>";
 
-echo "<form action=\"\" method=\"POST\" class=\"input-group mb-3\">
+echo "<form action=\"\" method=\"POST\" class=\"input-group mb-3\" enctype=\"multipart/form-data\">
 <div class=\"input-group-prepend\">
 <span class=\"input-group-text\">Spieltitel</span>
 <input type=\"text\" name=\"s_name\" placeholder=\"z.B. Warcraft\" class=\"form-control\"  required>
@@ -18,6 +18,10 @@ echo "<form action=\"\" method=\"POST\" class=\"input-group mb-3\">
 <div class=\"input-group-prepend\">
 <span class=\"input-group-text\">Beschreibung</span>
 <textarea name=\"s_text\" placeholder=\"Abenteuer, Rollenspiel\" cols=\"30\" rows=\"10\" class=\"form-control\" required></textarea>
+</div>
+<div class=\"input-group-prepend\">
+<span class=\"input-group-text\">Bild</span>
+<input type=\"file\" name=\"image\" id=\"image\">
 </div>
 
 <input type=\"submit\" name=\"arthin\" value=\"Artikel hinzufügen\" class=\"btn btn-outline-dark\">

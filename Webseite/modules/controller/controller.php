@@ -9,7 +9,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
 // Session ID erstellen ------------------------------------------------------------------------------
 
-    if(!isset($_COOKIE['user']))
+    if($_COOKIE['user'] == 0)
     {
 
         // cookie User erstellen, falls noch nicht getan.
@@ -135,10 +135,16 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
     {
         // User auf ausgeloggt setzen -----------------------------------------------------------
 
-            $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
-            $stm->bindParam(":cookie_user", $_COOKIE['user']);
+            // $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
+            // $stm->bindParam(":cookie_user", $_COOKIE['user']);
 
+            // $stm->execute();
+
+            $stm = $pdo->prepare("DELETE FROM cookie WHERE cookie_user = :cookie_user");
+            $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->execute();
+            setcookie('user', 0, time()+31556926);
+            $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
 
         // ---------------------------------------------------------------------------------------
     }
@@ -284,7 +290,7 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
             {
                 $rest = $Artikelanzahl % 6;
                 $anzahlohnerest = $Artikelanzahl - $rest;
-                $seitenzahl = $anzahlohnerest / 6 + 1;
+                $seitenzahl = $anzahlohnerest / 6;
             }
 
 
@@ -408,6 +414,8 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
         // ------------------------------------------------------------------------------------------------------------
     }
 
+
+
     if(isset($_POST['kaufen']))
     {
         
@@ -416,28 +424,54 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
         
             $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
 
-            while($zeile = $test->fetch())
-            {
-                // $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$zeile['s_id']."'")->fetchColumn();
-                // if($restanzahl == 0)
-                // {
-                //     echo "Es sind nicht genügend Keys des Spiels mit der ID ".$zeile['s_id']." vorhanden!";
-                //     break;
-                // }
-                // else
-                // {
-                    $kaufanzahl = "LIMIT ".$zeile['s_menge'];
-                    $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
-                    $stm->bindParam(":s_id", $zeile['s_id']);
-                    $stm->execute();
-            }
-                
-            // }
+            // Testen, ob noch genügen Keys vorhanden sind ---------------------------------------------------------------
 
-            $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
-            $stm->bindParam(":cookie_user", $_COOKIE['user']);
-            $stm->execute();
+                $zahl = 0;
+
+                while($zeile = $test->fetch())
+                {
+                    $restanzahl = $pdo->query("SELECT count(*) from locks WHERE s_id = '".$zeile['s_id']."'")->fetchColumn();
+                    $pdo == NULL;
+
+                    // echo $restanzahl;
+
+                    if($restanzahl == 0)
+                    {
+                        $zahl + 1;
+                    }
+                }
             
+            // -----------------------------------------------------------------------------------------------------------
+            
+            if($zahl == 0)
+            {
+                $test = $pdo->query("SELECT * FROM warenkorb WHERE cookie_user = '".$_COOKIE['user']."'");
+            
+                // Schlüssel löschen --------------------------------------------------------------------------------------
+
+                    while($zeile = $test->fetch())
+                    {
+                        $kaufanzahl = "LIMIT ".$zeile['s_menge'];
+                        $stm = $pdo->prepare("DELETE FROM locks WHERE s_id = :s_id ".$kaufanzahl."");
+                        $stm->bindParam(":s_id", $zeile['s_id']);
+                        $stm->execute();
+                    }
+
+                // -----------------------------------------------------------------------------------------------------------
+
+                // Warenkorb löschen -----------------------------------------------------------------------------------------
+
+                    $stm = $pdo->prepare("DELETE FROM warenkorb WHERE cookie_user = :cookie_user");
+                    $stm->bindParam(":cookie_user", $_COOKIE['user']);
+                    $stm->execute();
+
+                // ------------------------------------------------------------------------------------------------------------
+
+            }
+            else
+            {
+                echo "Es sind nicht mehr genügend Keyes da.";
+            }
 
         // -------------------------------------------------------------------------------------------------------------------
 
@@ -505,11 +539,19 @@ echo "<a href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a><br><
 
         if(isset($_POST['arthin']))
         {
-            $stm = $pdo->prepare("INSERT INTO spiele (s_name, s_hersteller, s_preis, s_text) VALUES (:s_name, :s_hersteller, :s_preis, :s_text)");
+            $check = getimagesize($_FILES["image"]["tmp_name"]);
+            if($check !== false)
+            {
+                $image = file_get_contents($_FILES["image"]["tmp_name"]);
+                echo "jo";
+            }
+            
+            $stm = $pdo->prepare("INSERT INTO spiele (s_name, s_hersteller, s_preis, s_text, s_bild) VALUES (:s_name, :s_hersteller, :s_preis, :s_text, :s_bild)");
             $stm->bindParam(":s_name", $_POST['s_name']);
             $stm->bindParam(":s_hersteller", $_POST['s_hersteller']);
             $stm->bindParam(":s_preis", $_POST['s_preis']);
             $stm->bindParam(":s_text", $_POST['s_text']);
+            $stm->bindParam(":s_bild", $image);
             $stm->execute();
         }
 
