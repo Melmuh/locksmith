@@ -298,7 +298,7 @@ if(!isset($_GET['mein']))
             {
                 $rest = $Artikelanzahl % 6;
                 $anzahlohnerest = $Artikelanzahl - $rest;
-                $seitenzahl = $anzahlohnerest / 6;
+                $seitenzahl = $anzahlohnerest / 6 + 1;
             }
 
 
