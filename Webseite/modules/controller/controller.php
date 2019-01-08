@@ -551,7 +551,7 @@ if(!isset($_GET['mein']))
             if($check !== false)
             {
                 $image = file_get_contents($_FILES["image"]["tmp_name"]);
-                echo "jo";
+                //echo "jo";
             }
             
             $stm = $pdo->prepare("INSERT INTO spiele (s_name, s_hersteller, s_preis, s_text, s_bild) VALUES (:s_name, :s_hersteller, :s_preis, :s_text, :s_bild)");
@@ -569,7 +569,8 @@ if(!isset($_GET['mein']))
 
         if(isset($_POST['artaend'])) 
         {
-            $stm = $pdo->prepare("UPDATE spiele SET s_name = :s_name, s_hersteller = :s_hersteller, s_preis = :s_preis, s_text = :s_text WHERE s_id = :s_id");
+            $stm = $pdo->prepare("UPDATE spiele SET s_bild = :s_bild, s_name = :s_name, s_hersteller = :s_hersteller, s_preis = :s_preis, s_text = :s_text WHERE s_id = :s_id");
+            $stm->bindParam(":s_bild", $image);
             $stm->bindParam(":s_name", $_POST['s_name']);
             $stm->bindParam(":s_hersteller", $_POST['s_hersteller']);
             $stm->bindParam(":s_preis", $_POST['s_preis']);
