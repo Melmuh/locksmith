@@ -1,9 +1,9 @@
 <?php
 
-    echo "  <nav aria-label=\"Page navigation example\">
+    echo "  <nav class=\"seitenzahl\" aria-label=\"Page navigation example\">
                 <ul class=\"pagination\">
-                    <li class=\"page-item\"> 
-                        <a href=\"?seite=".$i."\" class=\"page-link\">".$i."</a>
+                    <li> 
+                        <a href=\"?seite=".$i."\" class=\"btn btn-outline-dark-pages\">".$i."</a>
                     </li>
                 </ul>
             </nav>";

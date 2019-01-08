@@ -14,11 +14,9 @@ echo "
         <p class=\"card-text\">
             Hersteller: ".$row['s_hersteller']."
         </p>
-        <p class=\"card-text\">
-            F&uuml;r ".$row['s_preis']."€
-        </p>
-        <a href=\"?spiel=".$row['s_name']."\" class=\"btn btn-primary\">
-            Kaufen
+        <a href=\"?spiel=".$row['s_name']."\" class=\"btn btn-outline-dark-game\">
+            Kaufen f&uuml;r
+            ".$row['s_preis']."€
         </a>
     </div>
 </div>";

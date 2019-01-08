@@ -27,5 +27,5 @@ echo "<form action=\"\" method=\"POST\" class=\"input-group mb-3\" enctype=\"mul
 <input type=\"submit\" name=\"arthin\" value=\"Artikel hinzufügen\" class=\"btn btn-outline-dark\">
 
 </form>";
-echo "<h2 class=\"ueberschrift\">Aktuelle Artikel:</h2>";
+echo "<h2>Aktuelle Artikel:</h2>";
 ?>

@@ -9,12 +9,11 @@
     font-size: 15pt;
     color: #ffffff;
 }
-a.menutop{
+a.menutop, h2{
     margin: 1em;
     margin-left: 0;
-    text-decoration: #ffffff;
-    text-decoration-line: underline;
-    font-size: 20pt;
+    font-size: 23pt;
+    color: #007bff;
 }
 h3{
     color: #ffffff;
@@ -40,7 +39,6 @@ main{
 header.row{
     max-height:100%;
     overflow: hidden;
-    /* margin-top: 5em; */
     background-color: rgba(255, 255, 255, 0.5);
     height: 5em;
     margin: 0 !important;
@@ -80,21 +78,51 @@ form.input-group{
 .input-group-prepend{
     margin: 0.5em;
 }
-h2{
-    font-size: 15pt;
-    text-transform: uppercase;
-    margin: 1em 0;
-}
 .btn-outline-dark{
     padding: 0.25em;
-    margin: 0.5em;
+    margin: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }
+.btn-outline-dark-admin{
+    padding: 0.25em;
+    float: right;
+    margin: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-outline-dark-game{
+    padding: 0.5em;
+    float: right;
+    margin: 0.5em;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-outline-dark-pages{
+    padding: 0.75em;
+    float: right;
+    margin: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-outline-dark-admin:hover,
+.btn-outline-dark:hover,
+.btn-outline-dark-game:hover,
+.btn-outline-dark-pages:hover{
+    color: #007bff;
+    background-color: #000000;
+    cursor: pointer;
+    border-color: #007bff;
+}
+
 .table-dark{
-    border-color: black;
-    background-color: #c6c8ca !important;
+    border-color: #000000;
     border-style: solid;
     border-width: 1px;
-    color: #05275e;
 }
 .input-group-prepend{
     border-color: #ff;
@@ -108,10 +136,7 @@ h2{
 }
 
 table.start-artikel{
-    /* border-color: black; */
     background-color: #000000!important;
-    /* border-style: solid; */
-    /* border-width: 1px; */
     color: #ffffff;
     width: 45%;
     display: table;
@@ -125,11 +150,7 @@ table.start-artikel tbody tr{
 }
 .willkommen{
     margin: 1em 0;
-}
-.ueberschrift{
-    font-size: 33pt;
-    text-decoration: underline;
-    text-transform: uppercase;
+    margin-top: 3em;
 }
 .progress{
     display: flex;
@@ -148,4 +169,7 @@ table.start-artikel tbody tr{
     background-color: #000;
     border-color: #ffffff;
     margin: 0.15em;
+}
+nav.seitenzahl{
+    float: left;
 }

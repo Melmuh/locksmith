@@ -2,7 +2,7 @@
 
 include "webseite/modules/model/model.php";
 
-echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.php\">Home</a>";
+echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.php\">Startseite & Produkte</a>";
 
 
 if(!isset($_GET['mein']))
