@@ -11,9 +11,6 @@ echo "
 
         echo "<img src=\"data:image/jpeg;base64, ".$image."\" style=\"width:100%;\">
         </p>
-        <p class=\"card-text\">
-            Hersteller: ".$row['s_hersteller']."
-        </p>
         <a href=\"?spiel=".$row['s_name']."\" class=\"btn btn-outline-dark-game\">
             Kaufen f&uuml;r
             ".$row['s_preis']."€
