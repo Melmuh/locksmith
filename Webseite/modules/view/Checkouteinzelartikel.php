@@ -1,6 +1,6 @@
 <?php
 $spielpreis = $row['s_menge'] * $preis;
-echo $spielename." und das ganze genau ".$row['s_menge']." mal für den Preis von jeweils ".$preis."€! <hr>";
+echo "<strong>".$spielename."</strong> und das ganze genau <strong>".$row['s_menge']."</strong> x für den Preis von jeweils <strong>".$preis."€!</strong><hr>";
 $endpreis = $endpreis + $spielpreis;
 
 $spielestring = $spielestring .= $row['s_name']." (".$row['s_menge']."x), ";

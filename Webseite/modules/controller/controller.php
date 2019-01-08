@@ -135,7 +135,7 @@ if(!isset($_GET['mein']))
         }
         else
         {
-            echo "Bruder, du hasts verkackt.";
+            echo "Ungültige Email-Adresse oder Passwort!";
         }
     }
 
@@ -332,16 +332,39 @@ if(!isset($_GET['mein']))
             {
                 include "webseite/modules/view/Meinbereicheinzelartikel.php";
             }
+
+            $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+
+            $stm = $pdo->prepare("SELECT * FROM nutzer WHERE n_id = :n_id");
+            $stm->bindParam(":n_id", $n_id);
+            $stm->execute();
+
+            while($row = $stm->fetch())
+            {
+                include "webseite/modules/view/Meinbereichdatenaenderung.php";
+            }
         }
         else
         {
             echo "Logge dich ein um diesen Bereich zu benutzen!";
         }
+
     }
 
+    // Meine Daten bearbeiten --------------------------------------------------------------------------
+    
+    if(isset($_POST['dataend'])) 
+    {
+        $stm = $pdo->prepare("UPDATE nutzer SET n_vorname = :n_vorname, n_name = :n_name, n_email = :n_email, n_pass = :n_pass WHERE n_id = :n_id");
+        $stm->bindParam(":n_vorname", $_POST['n_vorname']);
+        $stm->bindParam(":n_name", $_POST['n_name']);
+        $stm->bindParam(":n_email", $_POST['n_email']);
+        $stm->bindParam(":n_pass", $_POST['n_pass']);
+        $stm->bindParam(":n_id", $_POST['n_id']);
+        $stm->execute();
+    }   
+    
 // -------------------------------------------------------------------------------------------------
-
-
 
 // Warenkorb -----------------------------------------------------------------------------------------
 
@@ -569,7 +592,14 @@ if(!isset($_GET['mein']))
 
         if(isset($_POST['artaend'])) 
         {
-            $stm = $pdo->prepare("UPDATE spiele SET s_bild = :s_bild, s_name = :s_name, s_hersteller = :s_hersteller, s_preis = :s_preis, s_text = :s_text WHERE s_id = :s_id");
+            $check = getimagesize($_FILES["image"]["tmp_name"]);
+            if($check !== false)
+            {
+                $image = file_get_contents($_FILES["image"]["tmp_name"]);
+                //echo "jo";
+            }
+
+            $stm = $pdo->prepare("UPDATE spiele SET s_name = :s_name, s_hersteller = :s_hersteller, s_preis = :s_preis, s_text = :s_text, s_bild = :s_bild WHERE s_id = :s_id");
             $stm->bindParam(":s_bild", $image);
             $stm->bindParam(":s_name", $_POST['s_name']);
             $stm->bindParam(":s_hersteller", $_POST['s_hersteller']);

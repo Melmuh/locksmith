@@ -1,5 +1,5 @@
 <?php
 
-echo "<div>".$restbestand."</div>";
+echo "<div class=\"rest\">".$restbestand."</div>";
 
 ?>

@@ -1,8 +1,5 @@
 
 
-
-
-
 <form method="POST" action="">
     <input type="email" name="email" placeholder="E-Mail">
     <input type="password" name="password" placeholder="Passwort">

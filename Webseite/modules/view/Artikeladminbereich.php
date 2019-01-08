@@ -10,9 +10,10 @@
         </tr>
     </thead>
     </tbody>
-        <form action=\"\" method=\"POST\">
+        <form action=\"\" method=\"POST\" enctype=\"multipart/form-data\">
             <tr>
                 <input type=\"hidden\" value=\"".$row['s_id']."\" name=\"s_id\">
+
                 <th scope=\"row\">
                 <input type=\"text\" value=\"".$row['s_name']."\" name=\"s_name\" style=\"color:#000; font-weight:200\">
                 </th>
@@ -37,6 +38,20 @@
                     </textarea>
                 </td>
             </tr>
+        </tbody>
+    <thead>
+        <tr>
+            <th colspan=\"3\" scope=\"col\" style=\"font-weight:200;\">Titelbild</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style=\"width:100%;\">
+                <td colspan=\"3\">
+                    <input type=\"file\" name=\"image\" id=\"image\" style=\"width:100%; height:auto; color:#000;\"> 
+                </td>
+            </tr>
+        </tbody>
+
     </table>
         <input type=\"submit\" name=\"artaend\" value=\"Änderung speichern\" class=\"btn btn-outline-dark\">
         <input type=\"submit\" name=\"artdel\" value=\"Artikel löschen\" class=\"btn btn-outline-dark\">

@@ -14,8 +14,6 @@ echo "<form action=\"?vielen=dank\" method=\"POST\">
     <label for=\"su\"> Paysafecard (+2.50€)</label> 
 </fieldset>
 <hr>
-
-
 ";
 
 ?>
