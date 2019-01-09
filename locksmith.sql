@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 09. Jan 2019 um 13:17
+-- Erstellungszeit: 09. Jan 2019 um 14:18
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -49,7 +49,7 @@ INSERT INTO `cookie` (`c_id`, `cookie_user`, `n_id`, `logged_in`, `login_expire`
 (39, 'f44a75a356bdba226859ea21abe149af', 0, b'0', '0000-00-00 00:00:00'),
 (41, 'b238d985d655a7e4435fbe50519aa23b', 0, b'0', '0000-00-00 00:00:00'),
 (48, 'c351be478c589dd823158cd80fafbd85', 0, b'0', '0000-00-00 00:00:00'),
-(49, '66a4a8eedc69a4ceafa75c78330f3d58', 0, b'0', '0000-00-00 00:00:00');
+(49, '66a4a8eedc69a4ceafa75c78330f3d58', 18, b'1', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,10 @@ INSERT INTO `kauf` (`k_id`, `n_id`, `k_datum`, `k_zeit`, `k_spiele`, `k_preis`) 
 (34, 10, '08.01.2019', '16:04', 'Battlefield 1 (1x), Minecraft (2x)', 49.98),
 (35, 10, '08.01.2019', '16:05', 'Battlefield 1 (1x), Minecraft (2x)', 49.98),
 (36, 10, '09.01.2019', '9:52', 'Jurassic World Evolution (2x)', 99.98),
-(37, 17, '09.01.2019', '11:27', 'Jurassic World Evolution (1x)', 49.99);
+(37, 17, '09.01.2019', '11:27', 'Jurassic World Evolution (1x)', 49.99),
+(38, 18, '09.01.2019', '13:51', 'Rocket League (1x), Black Desert Online (1x)', 29.98),
+(39, 18, '09.01.2019', '13:56', 'Jurassic World Evolution (1x)', 49.99),
+(40, 18, '09.01.2019', '14:10', 'Battlefield 1 (1x)', 30.00);
 
 -- --------------------------------------------------------
 
@@ -96,8 +99,6 @@ INSERT INTO `locks` (`locks`, `s_id`) VALUES
 ('07178a4ab1ae134519fd604200a2bd2a', 30),
 ('080531607d3d4e9d572866f6ee24efa4', 25),
 ('08b3d3d5b778b48ae57edc8dd7dcdc58', 21),
-('0981be93db03800bbf05c8c3c998256c', 18),
-('0ddf2a69b5c4783a9f461c40c6235744', 22),
 ('0e455ad3449c2f79f747c903313d16bc', 1),
 ('0f64f078ad5fe9333555a230e88c47f4', 1),
 ('1132630b13df41be5b82664e227e484b', 21),
@@ -117,7 +118,6 @@ INSERT INTO `locks` (`locks`, `s_id`) VALUES
 ('1ed23b3c3ae239fecfad6fa718a29647', 24),
 ('1edc8b4f64901696dea0427dfdfd2fc4', 21),
 ('1f92246781380ecf915efeea387a6fd4', 28),
-('20197b5d2ef1efbc6bc4f0687b0de961', 20),
 ('2321cb0f89e815a128686d1de4764c1e', 18),
 ('23771b0b8d4b44f600bdf59e44952875', 25),
 ('23efb2dd8b8e5259669248cc104aec79', 25),
@@ -146,7 +146,6 @@ INSERT INTO `locks` (`locks`, `s_id`) VALUES
 ('51ff30ed3c01c4581e4f6b6b02716310', 1),
 ('544acc907d8e84ef6bd497c879c107bf', 25),
 ('553c2478270f82773ca0c39527f8d3d3', 5),
-('563a5aed80ce24bad49011d6ec03278f', 19),
 ('56a6d8f57a4b72041b6ee6c8758ad93e', 19),
 ('57d0462f0fa48f640d91b38fa25cf05d', 19),
 ('58557f6f6927f90d41106b40ce099636', 4),
@@ -339,7 +338,8 @@ INSERT INTO `nutzer` (`n_id`, `n_name`, `n_vorname`, `n_email`, `n_pass`, `n_zah
 (2, 'Kahnwald', 'Jonas', 'kahnwald@mail.de', 'hashwert', 2, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (10, 'Wiese', 'Admin', 'admin@lol.de', '', 0, '$2y$10$BGdIfh/FzvaApHjM0WVojuY/b7jRbJGbPEZ/Guenxd.apEZC0IXcC', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (16, 'Valtinke', 'Melina', 'melina@web.de', '', 0, '$2y$10$bocDPcaVSvDOHwmBWAOicO3uXvJ08cPWMjYz.xBRieP3xNFvTsPcW', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, ' Valtinke', 'Melina', 'mel@web.de', '', 0, '$2y$10$hDTvQs0mzjCp52DFTwTH7uf5G0zZzwUNNT.UUtFPpbvpxSQdO/v2e', b'0', 'HasselmannstraÃŸe', '12', '24114, Kiel', 'Bank', '147852', '', NULL, NULL, NULL);
+(17, ' Valtinke', 'Melina', 'mel@web.de', '', 0, '$2y$10$hDTvQs0mzjCp52DFTwTH7uf5G0zZzwUNNT.UUtFPpbvpxSQdO/v2e', b'0', 'HasselmannstraÃŸe', '12', '24114, Kiel', 'Bank', '147852', '', NULL, NULL, NULL),
+(18, 'Valtinke', 'Kirsten', 'kirsten@web.de', '', 0, '$2y$10$5IxteXIqYRDcu5T4FR06TudmZus3WSmeUG9zT02xP2zPvgrqX.iiu', b'0', 'Tongrubenweg', '10', '25588, Mehlbek', 'Sparkasse', 'DE 123456798', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -500,13 +500,13 @@ ALTER TABLE `cookie`
 -- AUTO_INCREMENT für Tabelle `kauf`
 --
 ALTER TABLE `kauf`
-  MODIFY `k_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `k_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `n_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `n_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT für Tabelle `spiele`
@@ -518,7 +518,7 @@ ALTER TABLE `spiele`
 -- AUTO_INCREMENT für Tabelle `warenkorb`
 --
 ALTER TABLE `warenkorb`
-  MODIFY `w_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `w_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT für Tabelle `zahlung`
