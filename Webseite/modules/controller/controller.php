@@ -186,7 +186,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
     {
         if(!isset($_GET['mein']))
         {
-            echo "<a class=\"menutop\" href=\"?mein=bereich\">Mein Bereich</a>";
+            echo "<a class=\"menutop bereich\" href=\"?mein=bereich\">Mein Bereich</a>";
         }
     }
 

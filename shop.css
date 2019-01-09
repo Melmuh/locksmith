@@ -15,6 +15,12 @@ a.menutop, h2{
     font-size: 23pt;
     color: #007bff;
 }
+.bereich{
+    position: absolute;
+    top: 0.65em;
+    left: 35%;
+    margin:0 !important;
+}
 h3{
     color: #000000;
 }
