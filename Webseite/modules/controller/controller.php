@@ -591,6 +591,22 @@ if(!isset($_GET['mein']))
         
 
     // ----------------------------------------------------------------------------------------------
+    // Bestellungen einblenden -----------------------------------------------------------   
+            
+        if(isset($_GET['mein']))
+        {
+                echo "<h2>Alle Bestellungen:</h2><hr>";
+
+                $stm = $pdo->prepare("SELECT * FROM kauf, nutzer");
+                $stm->bindParam(":n_id", $n_id);
+                $stm->execute();
+                
+                while($row = $stm->fetch())
+                {
+                    include "webseite/modules/view/Meinbereicheinzelartikeladmin.php";
+                }
+            }
+            
 
 
     // Artikel hinzufügen -------------------------------------------------------------------------
