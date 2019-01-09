@@ -212,3 +212,17 @@ p.first-letter::first-letter{
     float: right;
     font-size: 18pt;
 }
+table.reg{
+    background-color: #efefef!important;
+    color: #000000;
+    width: 100%;
+    display: table;
+    float: left;
+    margin: 0.5em;
+}
+table.reg tr{
+    margin: 0.5em;
+}
+table.reg tr td{
+    padding: 0.5em;
+}

@@ -189,13 +189,31 @@ if(!isset($_GET['mein']))
     {
         
         // Get Parameters
-        $n_name = htmlspecialchars($_POST['n_name']);
         $n_vorname = htmlspecialchars($_POST['n_vorname']);
+        $n_name = htmlspecialchars($_POST['n_name']);
+        $n_str = htmlspecialchars($_POST['n_str']);
+        $n_nr = htmlspecialchars($_POST['n_nr']);
+        $n_ort = htmlspecialchars($_POST['n_ort']);
+        $n_bank = htmlspecialchars($_POST['n_bank']);
+        $n_iban = htmlspecialchars($_POST['n_iban']);
+        $n_bic = htmlspecialchars($_POST['n_bic']);
         $n_email = $_POST['n_email'];
         $n_pass = $_POST['n_pass'];
+        $n_pass2 = $_POST['n_pass2'];
+
 
         $hash = password_hash($n_pass, PASSWORD_DEFAULT);
 
+        // Prüfen, ob passwörter übereinstimmen --------------------------------------------------------------------------
+
+
+        if($n_pass != $n_pass2) {
+            echo 'Registrierung fehlgeschlagen!<br>
+            Die Passwörter stimmen nicht überein! <br>
+                    Bitte versuchen Sie es nochmal.';
+            $error = true;
+        }
+        
         // Prüfen, ob email schon vorhanden ----------------------------------------------------------------------
 
             $emailvergeben = $pdo->query("SELECT count(*) from nutzer WHERE n_email = '".$n_email."'")->fetchColumn();
@@ -208,13 +226,22 @@ if(!isset($_GET['mein']))
             else
             {
                 //Prepare Statements
-                $stm = $pdo->prepare("INSERT INTO nutzer(n_name, n_vorname, n_email, hashwert) VALUES (:n_name, :n_vorname, :n_email, :hashwert)");
-                $stm->bindParam(":n_name", $n_name);
+                $stm = $pdo->prepare("INSERT INTO nutzer(n_vorname, n_name, n_str, n_nr, n_ort, n_bank, n_iban, n_bic, n_email, hashwert) VALUES (:n_vorname, :n_name, :n_str, :n_nr, :n_ort, :n_bank, :n_iban, :n_bic, :n_email, :hashwert)");
                 $stm->bindParam(":n_vorname", $n_vorname);
+                $stm->bindParam(":n_name", $n_name);
+                $stm->bindParam(":n_str", $n_str);
+                $stm->bindParam(":n_nr", $n_nr);
+                $stm->bindParam(":n_ort", $n_ort);
+                $stm->bindParam(":n_bank", $n_bank);
+                $stm->bindParam(":n_iban", $n_iban);
+                $stm->bindParam(":n_bic", $n_bic);
                 $stm->bindParam(":n_email", $n_email);
                 $stm->bindParam(":hashwert", $hash);
 
                 $stm->execute();
+
+                echo 'Registrierung erfolgreich!
+                Sie können sich jetzt anmelden.';
             }
 
         // -------------------------------------------------------------------------------------------------------

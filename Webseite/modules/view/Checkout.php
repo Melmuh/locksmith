@@ -11,7 +11,9 @@ echo "<form action=\"?vielen=dank\" method=\"POST\">
     <input type=\"radio\" id=\"pp\" name=\"Zahlmethode\" value=\"2.5\">
     <label for=\"pp\"> PayPal (+2.50€)</label> <br>
     <input type=\"radio\" id=\"su\" name=\"Zahlmethode\" value=\"2.5\">
-    <label for=\"su\"> Paysafecard (+2.50€)</label> 
+    <label for=\"su\"> Paysafecard (+2.50€)</label> <br>
+    <input type=\"radio\" id=\"su\" name=\"Zahlmethode\" value=\"2.5\">
+    <label for=\"su\"> SEPA Lastschriftmandat</label> 
 </fieldset>
 <hr>
 ";
