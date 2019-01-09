@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 09. Jan 2019 um 11:36
+-- Erstellungszeit: 09. Jan 2019 um 13:17
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -48,7 +48,8 @@ INSERT INTO `cookie` (`c_id`, `cookie_user`, `n_id`, `logged_in`, `login_expire`
 (38, 'f9299d32c9be0ddb7edba9f93974323c', 0, b'0', '0000-00-00 00:00:00'),
 (39, 'f44a75a356bdba226859ea21abe149af', 0, b'0', '0000-00-00 00:00:00'),
 (41, 'b238d985d655a7e4435fbe50519aa23b', 0, b'0', '0000-00-00 00:00:00'),
-(46, '14835ed62054c3b2310507c1768f6c6c', 17, b'1', '0000-00-00 00:00:00');
+(48, 'c351be478c589dd823158cd80fafbd85', 0, b'0', '0000-00-00 00:00:00'),
+(49, '66a4a8eedc69a4ceafa75c78330f3d58', 0, b'0', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -324,30 +325,19 @@ CREATE TABLE `nutzer` (
   `n_iban` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `n_bic` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `n_anrede` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `n_pass2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+  `n_pass2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `n_kaufid` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `nutzer`
 --
 
-INSERT INTO `nutzer` (`n_id`, `n_name`, `n_vorname`, `n_email`, `n_pass`, `n_zahlung`, `hashwert`, `n_admin`, `n_str`, `n_nr`, `n_ort`, `n_bank`, `n_iban`, `n_bic`, `n_anrede`, `n_pass2`) VALUES
-(1, 'Meyer', 'Erik', 'meyer@mail.de', 'hashwert', 1, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'Kahnwald', 'Jonas', 'kahnwald@mail.de', 'hashwert', 2, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'Valtinke', 'Melina', 'valtinke@mail.de', 'hashwert', 2, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Sauer', 'Philipp', 'sauer@mail.de', 'hashwert', 4, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'asdaw', 'sadawds', 'adsd', '', 0, '$2y$10$aWVAqfnv3GiftnQ0C0U83uWCTy950EAgBjziT5/UG0Z', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 'Heinz', 'MÃ¼ller', 'heinz@lol.de', '', 0, '$2y$10$UNuX3VxLriRwHUplkePbM.gtVlK5I8/EU5J8I1Z56OG', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 'Hans', 'Peter', 'hans@lol.de', '', 0, '$2y$10$Y1.qO8O/WYhFs8gxEPpn.uvdy36wZnVRAn8md73pl.f', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 'Sauer', 'Philipp', 'penis@lol.de', '', 0, '$2y$10$wP04c.ewSKs7U5DQ.DzI8.CbG8Sw42YHFRIM19cYAKWw2.D/NU5rO', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 'Wiese', 'Admin', 'admin@lol.de', '', 0, '$2y$10$BGdIfh/FzvaApHjM0WVojuY/b7jRbJGbPEZ/Guenxd.apEZC0IXcC', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 'KeyÃŸner', 'Leon', 'leon@lol.de', '', 0, '$2y$10$c0WwzuEmvLBv/9Dm6usUAesuyBx1.wWh.ZS9c8m8QLDZsE4NrG9tq', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 'Test', 'User', 'nutzlosundso@gmail.com', '', 0, '$2y$10$lVh9v9uKUJVw7WMq9OQY9.uOL./qRHjokDFYbl3U5zjnzGhOL7FmK', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 'Hans', 'Peter', 'peter@lol.de', '', 0, '$2y$10$iEMDF4eqAznpqiaZMMRU0umJ377W1gYfj42.UHwhbIH4.WiSlMUBa', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 'Melina', 'Valtinke', 'melina@gmail.com', '', 0, '$2y$10$pshfeZUB6wOUP8Pvn9SkjujLJbAkuEIeSdeWzJc1a/R2NZcH/ttmu', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, ' Valtinke', 'Melina', 'melinavaltinke.mv@gmail.com', '', 0, '$2y$10$3kSZ1A895HP1iciHDXtbXemE8DCUD7xUBYWerodQvoFKIWU/tE4dW', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 'Valtinke', 'Melina', 'melina@web.de', '', 0, '$2y$10$bocDPcaVSvDOHwmBWAOicO3uXvJ08cPWMjYz.xBRieP3xNFvTsPcW', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, ' Valtinke', 'Melina', 'mel@web.de', '', 0, '$2y$10$hDTvQs0mzjCp52DFTwTH7uf5G0zZzwUNNT.UUtFPpbvpxSQdO/v2e', b'0', 'HasselmannstraÃŸe', '12', '24114, Kiel', 'Bank', '147852', '', NULL, NULL);
+INSERT INTO `nutzer` (`n_id`, `n_name`, `n_vorname`, `n_email`, `n_pass`, `n_zahlung`, `hashwert`, `n_admin`, `n_str`, `n_nr`, `n_ort`, `n_bank`, `n_iban`, `n_bic`, `n_anrede`, `n_pass2`, `n_kaufid`) VALUES
+(2, 'Kahnwald', 'Jonas', 'kahnwald@mail.de', 'hashwert', 2, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'Wiese', 'Admin', 'admin@lol.de', '', 0, '$2y$10$BGdIfh/FzvaApHjM0WVojuY/b7jRbJGbPEZ/Guenxd.apEZC0IXcC', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 'Valtinke', 'Melina', 'melina@web.de', '', 0, '$2y$10$bocDPcaVSvDOHwmBWAOicO3uXvJ08cPWMjYz.xBRieP3xNFvTsPcW', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, ' Valtinke', 'Melina', 'mel@web.de', '', 0, '$2y$10$hDTvQs0mzjCp52DFTwTH7uf5G0zZzwUNNT.UUtFPpbvpxSQdO/v2e', b'0', 'HasselmannstraÃŸe', '12', '24114, Kiel', 'Bank', '147852', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -502,7 +492,7 @@ ALTER TABLE `zahlung`
 -- AUTO_INCREMENT für Tabelle `cookie`
 --
 ALTER TABLE `cookie`
-  MODIFY `c_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `c_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT für Tabelle `kauf`
