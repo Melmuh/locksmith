@@ -5,10 +5,7 @@ include "webseite/modules/model/model.php";
 echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.php\">Startseite & Produkte</a>";
 
 
-if(!isset($_GET['mein']))
-{
-    echo "<a class=\"menutop\" href=\"?mein=bereich\">Mein Bereich</a>";
-}
+
 
 
 
@@ -181,6 +178,20 @@ if(!isset($_GET['mein']))
 // ---------------------------------------------------------------------------------------------------
 
 
+// Mein Bereichsbutton -------------------------------------------------------------------------------
+
+    $eingeloggt = $pdo->query("SELECT logged_in from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+            
+    if($eingeloggt == 1)
+    {
+        if(!isset($_GET['mein']))
+        {
+            echo "<a class=\"menutop\" href=\"?mein=bereich\">Mein Bereich</a>";
+        }
+    }
+
+// -----------------------------------------------------------------------------------------------------
+
 
 // Registrierfunktion --------------------------------------------------------------------------------
 
@@ -346,19 +357,41 @@ if(!isset($_GET['mein']))
 
 // Mein Bereich ------------------------------------------------------------------------------------
 
+
+
+
     if(isset($_GET['mein']))
     {
         if($eingeloggt == 1)
         {
-            echo "<h2>Meine Bestellungen:</h2><hr>";
 
-            $stm = $pdo->prepare("SELECT * FROM kauf WHERE n_id = :n_id");
-            $stm->bindParam(":n_id", $n_id);
-            $stm->execute();
             
-            while($row = $stm->fetch())
+
+            $n_id = $pdo->query("SELECT n_id from cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+            $n_admin = $pdo->query("SELECT n_admin from nutzer WHERE n_id = '".$n_id."'")->fetchColumn();
+
+            if($n_admin == 1)
             {
-                include "webseite/modules/view/Meinbereicheinzelartikel.php";
+                echo "<h2>Alle Bestellungen:</h2><hr>";
+                $stm = $pdo->prepare("SELECT * FROM kauf");
+                $stm->execute();
+                
+                while($row = $stm->fetch())
+                {
+                    include "webseite/modules/view/Meinbereicheinzelartikeladmin.php";
+                }
+            }
+            else
+            {
+                echo "<h2>Meine Bestellungen:</h2><hr>";
+                $stm = $pdo->prepare("SELECT * FROM kauf WHERE n_id = :n_id");
+                $stm->bindParam(":n_id", $n_id);
+                $stm->execute();
+                
+                while($row = $stm->fetch())
+                {
+                    include "webseite/modules/view/Meinbereicheinzelartikel.php";
+                }
             }
 
             $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
