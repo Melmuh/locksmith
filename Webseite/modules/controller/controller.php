@@ -395,7 +395,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
             if($n_admin == 1)
             {
                 echo "<h2>Alle Bestellungen:</h2><hr>";
-                $stm = $pdo->prepare("SELECT * FROM kauf");
+                $stm = $pdo->prepare("SELECT * FROM kauf, nutzer");
                 $stm->execute();
                 
                 while($row = $stm->fetch())
