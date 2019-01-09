@@ -357,31 +357,29 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
 
 // Mein Bereich ------------------------------------------------------------------------------------
 
-// Meine Daten bearbeiten --------------------------------------------------------------------------
+    // Meine Daten bearbeiten --------------------------------------------------------------------------
+            
+        if(isset($_POST['dataend'])) 
+        {
+            $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
 
+            $stm = $pdo->prepare("UPDATE nutzer SET n_vorname = :n_vorname, n_name = :n_name, n_email = :n_email, n_str = :n_str, n_nr = :n_nr, n_ort = :n_ort, n_bank= :n_bank, n_iban = :n_iban, n_bic = :n_bic, n_anrede = :n_anrede  WHERE n_id = :n_id");
+            $stm->bindParam(":n_vorname", $_POST['n_vorname']);
+            $stm->bindParam(":n_name", $_POST['n_name']);
+            $stm->bindParam(":n_email", $_POST['n_email']);
+            $stm->bindParam(":n_str", $_POST['n_str']);
+            $stm->bindParam(":n_nr", $_POST['n_nr']);
+            $stm->bindParam(":n_ort", $_POST['n_ort']);
+            $stm->bindParam(":n_bank", $_POST['n_bank']);
+            $stm->bindParam(":n_iban", $_POST['n_iban']);
+            $stm->bindParam(":n_bic", $_POST['n_bic']);
+            $stm->bindParam(":n_anrede", $_POST['n_anrede']);
+            $stm->bindParam(":n_id", $n_id);
+            $stm->execute();
+            
+        }   
 
-        
-if(isset($_POST['dataend'])) 
-{
-    $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
-
-    $stm = $pdo->prepare("UPDATE nutzer SET n_vorname = :n_vorname, n_name = :n_name, n_email = :n_email, n_str = :n_str, n_nr = :n_nr, n_ort = :n_ort, n_bank= :n_bank, n_iban = :n_iban, n_bic = :n_bic, n_anrede = :n_anrede  WHERE n_id = :n_id");
-    $stm->bindParam(":n_vorname", $_POST['n_vorname']);
-    $stm->bindParam(":n_name", $_POST['n_name']);
-    $stm->bindParam(":n_email", $_POST['n_email']);
-    $stm->bindParam(":n_str", $_POST['n_str']);
-    $stm->bindParam(":n_nr", $_POST['n_nr']);
-    $stm->bindParam(":n_ort", $_POST['n_ort']);
-    $stm->bindParam(":n_bank", $_POST['n_bank']);
-    $stm->bindParam(":n_iban", $_POST['n_iban']);
-    $stm->bindParam(":n_bic", $_POST['n_bic']);
-    $stm->bindParam(":n_anrede", $_POST['n_anrede']);
-    $stm->bindParam(":n_id", $n_id);
-    $stm->execute();
-    
-}   
-
-// -------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------
 
 
     if(isset($_GET['mein']))
