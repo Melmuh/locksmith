@@ -153,6 +153,7 @@ if(!isset($_GET['mein']))
             $stm->execute();
             setcookie('user', 0, time()+31556926);
             $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
+            header("Refresh:0");
 
         // ---------------------------------------------------------------------------------------
     }
@@ -352,19 +353,27 @@ if(!isset($_GET['mein']))
     }
 
     // Meine Daten bearbeiten --------------------------------------------------------------------------
-    
-    if(isset($_POST['dataend'])) 
-    {
-        $stm = $pdo->prepare("UPDATE nutzer SET n_vorname = :n_vorname, n_name = :n_name, n_email = :n_email, n_pass = :n_pass WHERE n_id = :n_id");
-        $stm->bindParam(":n_vorname", $_POST['n_vorname']);
-        $stm->bindParam(":n_name", $_POST['n_name']);
-        $stm->bindParam(":n_email", $_POST['n_email']);
-        $stm->bindParam(":n_pass", $_POST['n_pass']);
-        $stm->bindParam(":n_id", $_POST['n_id']);
-        $stm->execute();
-    }   
-    
-// -------------------------------------------------------------------------------------------------
+
+
+        
+        if(isset($_POST['dataend'])) 
+        {
+            $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
+
+            $stm = $pdo->prepare("UPDATE nutzer SET n_vorname = :n_vorname, n_name = :n_name, n_email = :n_email WHERE n_id = :n_id");
+            $stm->bindParam(":n_vorname", $_POST['n_vorname']);
+            $stm->bindParam(":n_name", $_POST['n_name']);
+            $stm->bindParam(":n_email", $_POST['n_email']);
+            $stm->bindParam(":n_id", $n_id);
+            $stm->execute();
+            header("Refresh:0");
+            
+        }   
+        
+    // -------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------------------------------
+
 
 // Warenkorb -----------------------------------------------------------------------------------------
 

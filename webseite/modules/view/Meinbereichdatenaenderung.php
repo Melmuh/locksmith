@@ -6,7 +6,6 @@ echo "<table class=\"table table-dark\">
         <th scope=\"col\" style=\"font-weight:200;\">Vorname</th>
         <th scope=\"col\" style=\"font-weight:200;\">Name</th>
         <th scope=\"col\" style=\"font-weight:200;\">Email Adresse</th>
-        <th scope=\"col\" style=\"font-weight:200;\">Passwort</th>
     </tr>
 </thead>
     </tbody>
@@ -20,9 +19,6 @@ echo "<table class=\"table table-dark\">
                 </td>
                 <td>
                     <input type=\"email\" name=\"n_email\" value=\"".$row['n_email']."\" style=\"color:#000; font-weight:200\">
-                </td>
-                <td>
-                    <input type=\"password\" name=\"n_pass\" value=\"".$row['n_pass']."\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     </tbody>
