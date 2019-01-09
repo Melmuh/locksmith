@@ -81,12 +81,6 @@ echo "
                 <td>
                     <input type=\"email\" name=\"n_email\" value=\"".$row['n_email']."\" style=\"color:#000; font-weight:200\">
                 </td>
-                <td>
-                    <input type=\"password\" name=\"n_pass\" value=\"".$row['n_pass']."\" style=\"color:#000; font-weight:200\">
-                </td>
-                <td>
-                    <input type=\"password\" name=\"n_pass2\" value=\"".$row['n_pass2']."\" style=\"color:#000; font-weight:200\">
-                </td>
             </tr>
     </tbody>
 </table>
