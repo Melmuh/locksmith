@@ -14,6 +14,9 @@ echo "
             <tr>
                 <th scope=\"row\">
                     <select value=\"".$row['n_anrede']."\" name=\"n_anrede\" size=\"1\" style=\"color:#000; font-weight:200\">
+                        <option value=\"Mann\">Mann</option>
+                        <option value=\"Frau\">Frau</option>
+                    </select>
                 </th>
                 <td>
                     <input type=\"text\" value=\"".$row['n_vorname']."\" name=\"n_vorname\" style=\"color:#000; font-weight:200\">
@@ -73,8 +76,6 @@ echo "
     <thead>
             <tr>
                 <th scope=\"col\" style=\"font-weight:200;\">Email Adresse</th>
-                <th scope=\"col\" style=\"font-weight:200;\">Passwort</th>
-                <th scope=\"col\" style=\"font-weight:200;\">Passwort bestätigen</th>
             </tr>
     </thead>
             <tr>
