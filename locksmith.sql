@@ -309,6 +309,8 @@ INSERT INTO `locks` (`locks`, `s_id`) VALUES
 -- Tabellenstruktur für Tabelle `nutzer`
 --
 
+DROP TABLE IF EXISTS `nutzer`;
+
 CREATE TABLE `nutzer` (
   `n_id` int(10) NOT NULL,
   `n_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
