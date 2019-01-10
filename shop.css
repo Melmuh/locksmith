@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei');
 @import url('https://fonts.googleapis.com/css?family=Dosis');
 
+/* HTML */
 *
 {
     margin: 0;
@@ -9,24 +10,6 @@
     font-size: 15pt;
     color: #000000;
 }
-a.menutop, h2{
-    margin: 1em;
-    margin-left: 0;
-    font-size: 23pt;
-    color: #007bff;
-}
-.bereich{
-    position: absolute;
-    top: 0.65em;
-    left: 35%;
-    margin:0 !important;
-}
-h3{
-    color: #000000;
-}
-.img-fluid{
-    width: 100%;
-}
 body {
     background-image: url(../locksmith/webseite/aussehen/vorlagen/Images/background.jpg);
     background-position: left top;
@@ -34,15 +17,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-main{
-    background-color:  rgba(255, 255, 255, 0.5);
-}
-.background-inner{
-    background: #efefef;
-    padding: 1em;
-    height: 100%;
-    width: 870px;
-}
+/* HEADER */
 header.row{
     max-height:100%;
     overflow: hidden;
@@ -63,25 +38,85 @@ header.row{
     float: right;
     font-size: 30pt;
 }
-.row {
-    height: 100%;
-    margin: 0 !important;
+main{
+    background-color:  rgba(255, 255, 255, 0.5);
 }
-.top{
-    background-color: #efefef;
-    color: #000000;
-    margin: 2em;
+.background-inner{
+    background: #efefef;
+    padding: 1em;
+    height: 100%;
+    width: 870px;
+}
+/* MENU & Überschriften*/
+a.menutop, h2{
+    margin: 1em;
+    margin-left: 0;
+    font-size: 23pt;
+    color: #007bff;
 }
 h3{
     color: #000000;
     line-height: 1.6;
 }
+/*Adminbereichsbutton*/
+.bereich{
+    position: absolute;
+    top: 0.65em;
+    left: 35%;
+    margin:0 !important;
+}
+
+.img-fluid{
+    width: 100%;
+}
+.row {
+    height: 100%;
+    margin: 0 !important;
+}
+/* FORMULARE & Tabellen */
 form.input-group{
     display: block !important;
 }
 .input-group-prepend{
     margin: 0.5em;
 }
+.table-dark{
+    border-color: #000000;
+    background-color: #efefef;
+}
+.input-group-prepend{
+    border-color: #fff;
+    border-style: solid;
+    border-width: 1px;
+}
+table.start-artikel{
+    background-color: #efefef!important;
+    color: #000000;
+    width: 45%;
+    display: table;
+    float: left;
+    margin: 0.5em;
+}
+table.start-artikel tbody tr{
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 3px;
+}
+table.reg{
+    background-color: #efefef!important;
+    color: #000000;
+    width: 100%;
+    display: table;
+    float: left;
+    margin: 0.5em;
+}
+table.reg tr{
+    margin: 0.5em;
+}
+table.reg tr td{
+    padding: 0.5em;
+}
+/* BUTTONS */
 .btn-outline-dark{
     padding: 0.25em;
     margin: 1em;
@@ -133,40 +168,10 @@ form.input-group{
     cursor: pointer;
     border-color: #007bff;
 }
-
-.table-dark{
-    border-color: #000000;
-    border-style: solid;
-    border-width: 1px;
-    background-color: #efefef;
-}
-.input-group-prepend{
-    border-color: #fff;
-    border-style: solid;
-    border-width: 1px;
-}
-
+/* WARENKORB */
 .warenkorb-anzeige{
     margin-top: -3em;
     float: right;
-}
-
-table.start-artikel{
-    background-color: #efefef!important;
-    color: #000000;
-    width: 45%;
-    display: table;
-    float: left;
-    margin: 0.5em;
-}
-table.start-artikel tbody tr{
-    border-style: solid;
-    border-color: #ffffff;
-    border-width: 3px;
-}
-.willkommen{
-    margin: 1em 0;
-    margin-top: 1em;
 }
 .progress{
     display: flex;
@@ -181,6 +186,12 @@ table.start-artikel tbody tr{
     background-color: #000;
     padding: 1em;
 }
+/* WILLKOMMENSTEXT */
+.willkommen{
+    margin: 1em 0;
+    margin-top: 1em;
+}
+/* PRODUKTE */
 .card{
     background-color: #efefef;
     border-color: #000000;
@@ -215,21 +226,8 @@ p.first-letter::first-letter{
     margin: 1em;
     float: left;
 }
+/* BEZAHLEN */
 .checkout{
     float: right;
     font-size: 18pt;
-}
-table.reg{
-    background-color: #efefef!important;
-    color: #000000;
-    width: 100%;
-    display: table;
-    float: left;
-    margin: 0.5em;
-}
-table.reg tr{
-    margin: 0.5em;
-}
-table.reg tr td{
-    padding: 0.5em;
 }
