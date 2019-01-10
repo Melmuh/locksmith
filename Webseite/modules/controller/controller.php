@@ -14,7 +14,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
 
 // Session ID erstellen ------------------------------------------------------------------------------
 
-    if($_COOKIE['user'] == 0)
+    if(!isset($_COOKIE['user']))
     {
 
         // cookie User erstellen, falls noch nicht getan.
@@ -140,17 +140,29 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
     {
         // User auf ausgeloggt setzen -----------------------------------------------------------
 
-            // $stm = $pdo->prepare("UPDATE cookie SET logged_in = 0 WHERE cookie_user = :cookie_user");
+            // $stm = $pdo->prepare("DELETE FROM cookie WHERE cookie_user = :cookie_user");
             // $stm->bindParam(":cookie_user", $_COOKIE['user']);
-
             // $stm->execute();
+            // setcookie('user', 0, time()+31556926);
+            // $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
+            // header("Refresh:0");
 
-            $stm = $pdo->prepare("DELETE FROM cookie WHERE cookie_user = :cookie_user");
+            $newuser = md5(openssl_random_pseudo_bytes(32));
+            
+            $stm = $pdo->prepare("UPDATE cookie SET cookie_user = :new_cookie_user, n_id = 0, logged_in = 0 WHERE cookie_user = :cookie_user");
+            $stm->bindParam(":new_cookie_user", $newuser);
             $stm->bindParam(":cookie_user", $_COOKIE['user']);
             $stm->execute();
-            setcookie('user', 0, time()+31556926);
-            $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
+
+            $stm = $pdo->prepare("UPDATE warenkorb SET cookie_user = :new_cookie_user WHERE cookie_user = :cookie_user");
+            $stm->bindParam(":new_cookie_user", $newuser);
+            $stm->bindParam(":cookie_user", $_COOKIE['user']);
+            $stm->execute();
+
+            setcookie('user', $newuser, time()+31556926);
+            $_COOKIE['user'] = $newuser; // damit der cookie früher geladen wird lol
             header("Refresh:0");
+
 
         // ---------------------------------------------------------------------------------------
     }
