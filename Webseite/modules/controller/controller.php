@@ -14,7 +14,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
 
 // Session ID erstellen ------------------------------------------------------------------------------
 
-    if(!isset($_COOKIE['user']))
+    if(!isset($_COOKIE['user']) || $_COOKIE['user'] == 0)
     {
 
         // cookie User erstellen, falls noch nicht getan.
@@ -31,6 +31,10 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
         $stm->execute();
 
     }
+    // else
+    // {
+    //     echo $_COOKIE['user'];
+    // }
 
 
     
@@ -86,23 +90,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
 
 
         if(password_verify($password, $stored_hash))
-        {
-            // if(password_needs_rehash($stored_hash, PASSWORD_DEFAULT))
-            // {
-            //     $hash = password_hash($password, PASSWORD_DEFAULT),
-
-            //     // store in database
-
-            //     $stm = $pdo->prepare("UPDATE nutzer SET hashwert = :hashwert WHERE n_email = :email");
-            //     $stm->bindParam(":hashwert", $hash);
-            //     $stm->bindParam(":email", $email);
-                
-            //     $stm->execute();
-            // }
-            
-
-
-            
+        {   
             // User auf eingeloggt setzen -----------------------------------------------------------
 
                 $stm = $pdo->prepare("UPDATE cookie SET logged_in = 1 WHERE cookie_user = :cookie_user");
@@ -140,13 +128,6 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
     {
         // User auf ausgeloggt setzen -----------------------------------------------------------
 
-            // $stm = $pdo->prepare("DELETE FROM cookie WHERE cookie_user = :cookie_user");
-            // $stm->bindParam(":cookie_user", $_COOKIE['user']);
-            // $stm->execute();
-            // setcookie('user', 0, time()+31556926);
-            // $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
-            // header("Refresh:0");
-
             $newuser = md5(openssl_random_pseudo_bytes(32));
             
             $stm = $pdo->prepare("UPDATE cookie SET cookie_user = :new_cookie_user, n_id = 0, logged_in = 0 WHERE cookie_user = :cookie_user");
@@ -161,8 +142,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
 
             setcookie('user', $newuser, time()+31556926);
             $_COOKIE['user'] = $newuser; // damit der cookie früher geladen wird lol
-            header("Refresh:0");
-
+            // header("Refresh:0");
 
         // ---------------------------------------------------------------------------------------
     }
@@ -203,6 +183,20 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
     }
 
 // -----------------------------------------------------------------------------------------------------
+
+
+// Cookielöschen DEBUGFUNKTION ----------------------------------------------------------------
+
+    // echo "<form action=\"\" method=\"POST\"><input type=\"submit\" name=\"cookiedel\" value=\"cookie löschen\"></form>";
+
+    // if(isset($_POST['cookiedel']))
+    // {
+    //     setcookie('user', '0', time()+31556926);
+    //     $_COOKIE['user'] = 0; // damit der cookie früher geladen wird lol
+    // }
+
+// ----------------------------------------------------------------------------------------------
+
 
 
 // Registrierfunktion --------------------------------------------------------------------------------
@@ -375,6 +369,8 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
         {
             $n_id = $pdo->query("SELECT n_id FROM cookie WHERE cookie_user = '".$_COOKIE['user']."'")->fetchColumn();
 
+            $IBANsecure = md5($_POST['n_iban']);
+
             $stm = $pdo->prepare("UPDATE nutzer SET n_vorname = :n_vorname, n_name = :n_name, n_email = :n_email, n_str = :n_str, n_nr = :n_nr, n_ort = :n_ort, n_bank= :n_bank, n_iban = :n_iban, n_bic = :n_bic, n_anrede = :n_anrede  WHERE n_id = :n_id");
             $stm->bindParam(":n_vorname", $_POST['n_vorname']);
             $stm->bindParam(":n_name", $_POST['n_name']);
@@ -383,7 +379,7 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
             $stm->bindParam(":n_nr", $_POST['n_nr']);
             $stm->bindParam(":n_ort", $_POST['n_ort']);
             $stm->bindParam(":n_bank", $_POST['n_bank']);
-            $stm->bindParam(":n_iban", $_POST['n_iban']);
+            $stm->bindParam(":n_iban", $IBANsecure);
             $stm->bindParam(":n_bic", $_POST['n_bic']);
             $stm->bindParam(":n_anrede", $_POST['n_anrede']);
             $stm->bindParam(":n_id", $n_id);
@@ -407,11 +403,17 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
             if($n_admin == 1)
             {
                 echo "<h2>Alle Bestellungen:</h2><hr>";
+
+                
+
                 $stm = $pdo->prepare("SELECT * FROM kauf");
                 $stm->execute();
+
+
                 
                 while($row = $stm->fetch())
                 {
+                    $n_name = $pdo->query("SELECT n_name FROM nutzer WHERE n_id = '".$row['n_id']."'")->fetchColumn();
                     include "webseite/modules/view/Meinbereicheinzelartikeladmin.php";
                 }
             }
