@@ -43,9 +43,6 @@
             <input type="password" name="n_pass" placeholder="Passwort" required>
         </td>
         <td>
-            <input type="password" name="n_pass2" placeholder="Passwort bestätigen" required>
-        </td>
-        <td>
             <input type="submit" name="registrieren" value="Jetzt registrieren" class="btn-outline-dark" required>
         </td>
     </tr>

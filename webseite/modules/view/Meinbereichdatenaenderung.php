@@ -13,16 +13,16 @@ echo "
         <form action=\"\" method=\"POST\">
             <tr>
                 <th scope=\"row\">
-                    <select value=\"".$row['n_anrede']."\" name=\"n_anrede\" size=\"1\" style=\"color:#000; font-weight:200\">
+                    <select value=\"".htmlspecialchars($row['n_anrede'])."\" name=\"n_anrede\" size=\"1\" style=\"color:#000; font-weight:200\">
                         <option value=\"Mann\">Mann</option>
                         <option value=\"Frau\">Frau</option>
                     </select>
                 </th>
                 <td>
-                    <input type=\"text\" value=\"".$row['n_vorname']."\" name=\"n_vorname\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_vorname'])."\" name=\"n_vorname\" style=\"color:#000; font-weight:200\">
                 </td>
                 <td>
-                    <input type=\"text\" value=\"".$row['n_name']."\" name=\"n_name\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_name'])."\" name=\"n_name\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     <thead>
@@ -34,13 +34,13 @@ echo "
     </thead>
             <tr>
                 <td>
-                    <input type=\"text\" value=\"".$row['n_str']."\" name=\"n_str\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_str'])."\" name=\"n_str\" style=\"color:#000; font-weight:200\">
                 </td>
                 <td>
-                    <input type=\"text\" value=\"".$row['n_nr']."\" name=\"n_nr\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_nr'])."\" name=\"n_nr\" style=\"color:#000; font-weight:200\">
                 </td>
                 <td>
-                    <input type=\"text\" value=\"".$row['n_ort']."\" name=\"n_ort\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_ort'])."\" name=\"n_ort\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     <thead>
@@ -50,7 +50,7 @@ echo "
     </thead>
             <tr>
                 <td colspan=\"3\">
-                    <input type=\"text\" value=\"".$row['n_bank']."\" name=\"n_bank\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_bank'])."\" name=\"n_bank\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     <thead>
@@ -60,7 +60,7 @@ echo "
     </thead>
             <tr>
                 <td colspan=\"3\">
-                    <input type=\"text\" value=\"".$row['n_iban']."\" name=\"n_iban\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_iban'])."\" name=\"n_iban\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     <thead>
@@ -70,7 +70,7 @@ echo "
     </thead>
             <tr>
                 <td colspan=\"3\">
-                    <input type=\"text\" value=\"".$row['n_bic']."\" name=\"n_bic\" style=\"color:#000; font-weight:200\">
+                    <input type=\"text\" value=\"".htmlspecialchars($row['n_bic'])."\" name=\"n_bic\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     <thead>
@@ -80,7 +80,7 @@ echo "
     </thead>
             <tr>
                 <td>
-                    <input type=\"email\" name=\"n_email\" value=\"".$row['n_email']."\" style=\"color:#000; font-weight:200\">
+                    <input type=\"email\" name=\"n_email\" value=\"".htmlspecialchars($row['n_email'])."\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     </tbody>

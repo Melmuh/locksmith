@@ -12,16 +12,16 @@
     </tbody>
         <form action=\"\" method=\"POST\" enctype=\"multipart/form-data\">
             <tr>
-                <input type=\"hidden\" value=\"".$row['s_id']."\" name=\"s_id\">
+                <input type=\"hidden\" value=\"".htmlspecialchars($row['s_id'])."\" name=\"s_id\">
 
                 <th scope=\"row\">
-                <input type=\"text\" value=\"".$row['s_name']."\" name=\"s_name\" style=\"color:#000; font-weight:200\">
+                <input type=\"text\" value=\"".htmlspecialchars($row['s_name'])."\" name=\"s_name\" style=\"color:#000; font-weight:200\">
                 </th>
                 <td>
-                <input type=\"text\" value=\"".$row['s_hersteller']."\" name=\"s_hersteller\" style=\"color:#000; font-weight:200\">
+                <input type=\"text\" value=\"".htmlspecialchars($row['s_hersteller'])."\" name=\"s_hersteller\" style=\"color:#000; font-weight:200\">
                 </td>
                 <td>
-                <input type=\"number\" name=\"s_preis\" value=\"".$row['s_preis']."\" min=\"0.01\" max=\"99.99\" step=\"0.01\" data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" style=\"color:#000; font-weight:200\">
+                <input type=\"number\" name=\"s_preis\" value=\"".htmlspecialchars($row['s_preis'])."\" min=\"0.01\" max=\"99.99\" step=\"0.01\" data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" style=\"color:#000; font-weight:200\">
                 </td>
             </tr>
     </tbody>
@@ -34,7 +34,7 @@
             <tr style=\"width:100%;\">
                 <td colspan=\"3\">
                     <textarea  name=\"s_text\" style=\"width:100%; height:5em; color:#000;\"> 
-                        \"".$row['s_text']."\"
+                        \"".htmlspecialchars($row['s_text'])."\"
                     </textarea>
                 </td>
             </tr>

@@ -217,20 +217,11 @@ echo "<a class=\"menutop\" href=\"http://localhost/Onlineshop2/locksmith/index.p
         $n_bic = htmlspecialchars($_POST['n_bic']);
         $n_email = $_POST['n_email'];
         $n_pass = $_POST['n_pass'];
-        $n_pass2 = $_POST['n_pass2'];
+
 
 
         $hash = password_hash($n_pass, PASSWORD_DEFAULT);
 
-        // Prüfen, ob passwörter übereinstimmen --------------------------------------------------------------------------
-
-
-        if($n_pass != $n_pass2) {
-            echo 'Registrierung fehlgeschlagen!<br>
-            Die Passwörter stimmen nicht überein! <br>
-                    Bitte versuchen Sie es nochmal.';
-            $error = true;
-        }
         
         // Prüfen, ob email schon vorhanden ----------------------------------------------------------------------
 

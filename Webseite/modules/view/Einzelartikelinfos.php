@@ -14,9 +14,9 @@ echo "
             echo "<img src=\"data:image/jpeg;base64, ".$image."\" style=\"width:100%; height:auto;\">
             </p>
         </div>
-        <p class=\"first-letter\">".$row['s_text']."</p>
-        <p>Entwickler: ".$row['s_hersteller']."</p>
-        <p style=\"font-weight:bold;\">Preis: ".$row['s_preis']." €</p>
+        <p class=\"first-letter\">".htmlspecialchars($row['s_text'])."</p>
+        <p>Entwickler: ".htmlspecialchars($row['s_hersteller'])."</p>
+        <p style=\"font-weight:bold;\">Preis: ".htmlspecialchars($row['s_preis'])." €</p>
     </div>
 </div>";
 ?>
